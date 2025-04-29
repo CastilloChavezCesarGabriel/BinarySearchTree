@@ -4,14 +4,14 @@
 using namespace std;
 class Node {
 private:
-    std::string value;
+    float value;
     Node *left{};
     Node *right{};
 
 public:
-    explicit Node(std::string value);
+    explicit Node(float value);
 
-    std::string getValue() const;
+    float getValue() const;
     Node *&getLeft();
     Node *&getRight();
     void setLeft(Node* node);

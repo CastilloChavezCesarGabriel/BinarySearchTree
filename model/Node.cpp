@@ -1,8 +1,8 @@
 #include "Node.h"
 
-Node::Node(std::string value) : value(std::move(value)) {}
+Node::Node(float value) : value(value) {}
 
-std::string Node::getValue() const {
+float Node::getValue() const {
     return value;
 }
 

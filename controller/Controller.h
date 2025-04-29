@@ -3,6 +3,7 @@
 #include <QObject>
 #include "../model/BinaryTreeModel.h"
 #include "../view/View.h"
+#include "DrawController.h"
 
 class Controller final : public QObject {
     Q_OBJECT
@@ -10,6 +11,8 @@ private:
     BinaryTreeModel* model;
     View* view;
 
+    static int countLeaves(Node* node);
+    void drawSubtree(Node* child, const DrawController& node);
     void drawTree(Node* node, int x, int y, int horizontalOffset);
     void updateTree(Node* root);
 

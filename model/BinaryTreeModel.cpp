@@ -1,6 +1,7 @@
 #include "BinaryTreeModel.h"
-#include <queue>
+#include "TreeTransversal.h"
 #include <cmath>
+#include <regex>
 
 BinaryTreeModel::BinaryTreeModel() : root(nullptr) {}
 
@@ -8,23 +9,25 @@ BinaryTreeModel::~BinaryTreeModel() {
     deleteTree(root);
 }
 
-bool BinaryTreeModel::isNodeExist(const std::string& value) const {
+bool BinaryTreeModel::isNodeExist(const float& value) const {
     return findNode(value) != nullptr;
 }
 
-void BinaryTreeModel::createRoot(const std::string &value) {
+void BinaryTreeModel::createRoot(const float& value) {
     if (root == nullptr) {
         root = new Node(value);
     }
 }
 
-void BinaryTreeModel::createNode(Node* parent, const bool isLeft, const std::string &value) {
+void BinaryTreeModel::createNode(Node* parent, const bool isLeft, const float& value) {
     if (parent == nullptr) return;
 
     if (isLeft) {
-        parent->setLeft(new Node(value));
+        if (parent->getLeft() == nullptr)
+            parent->setLeft(new Node(value));
     } else {
-        parent->setRight(new Node(value));
+        if (parent->getRight() == nullptr)
+            parent->setRight(new Node(value));
     }
 }
 
@@ -33,7 +36,7 @@ void BinaryTreeModel::deleteRoot() {
     root = nullptr;
 }
 
-bool BinaryTreeModel::deleteNode(const std::string& parentValue, const bool isLeft, const std::string& value) const {
+bool BinaryTreeModel::deleteNode(const float& parentValue, const bool isLeft, const float& value) const {
     if (!root) return false;
 
     Node* parent = findNode(parentValue);
@@ -60,11 +63,11 @@ bool BinaryTreeModel::deleteNode(const std::string& parentValue, const bool isLe
     return true;
 }
 
-Node* BinaryTreeModel::findNode(const std::string& value) const {
+Node* BinaryTreeModel::findNode(const float& value) const {
     return findNodeRecursive(root, value);
 }
 
-Node* BinaryTreeModel::findNodeRecursive(Node* node, const std::string& value) {
+Node* BinaryTreeModel::findNodeRecursive(Node* node, const float& value) {
     if (!node) return nullptr;
     if (node->getValue() == value) return node;
     if (Node* left = findNodeRecursive(node->getLeft(), value)) return left;
@@ -75,41 +78,41 @@ std::string BinaryTreeModel::getInfo() const {
     std::string info = "InOrder: " + inOrderTraversal() + "\n";
     info += "PreOrder: " + preOrderTraversal() + "\n";
     info += "PostOrder: " + postOrderTraversal() + "\n";
-    info += "Is AVL: " + std::string(isAVLTree() ? "Yes" : "No");
+    info += "Is AVL: " + std::string(isAVL() ? "Yes" : "No");
     return info;
 }
 
 std::string BinaryTreeModel::preOrderTraversal() const {
-    std::vector<std::string> result;
-    preOrder(root, result);
+    std::vector<float> result;
+    TreeTransversal::preOrder(root, result);
     std::string output;
-    for (const std::string &value : result) {
-        output += value + " ";
+    for (float value : result) {
+        output += std::to_string(value) + " ";
     }
     return output;
 }
 
 std::string BinaryTreeModel::inOrderTraversal() const {
-    std::vector<std::string> result;
-    inOrder(root, result);
+    std::vector<float> result;
+    TreeTransversal::inOrder(root, result);
     std::string output;
-    for (std::string &value : result) {
-        output += value + " ";
+    for (float value : result) {
+        output += std::to_string(value) + " ";
     }
     return output;
 }
 
 std::string BinaryTreeModel::postOrderTraversal() const {
-    std::vector<std::string> result;
-    postOrder(root, result);
+    std::vector<float> result;
+    TreeTransversal::postOrder(root, result);
     std::string output;
-    for (const std::string &value : result) {
-        output += value + " ";
+    for (float value : result) {
+        output += std::to_string(value) + " ";
     }
     return output;
 }
 
-bool BinaryTreeModel::isAVLTree() const {
+bool BinaryTreeModel::isAVL() const {
     return checkAVL(root);
 }
 
@@ -126,34 +129,6 @@ void BinaryTreeModel::deleteTree(Node* node) {
     deleteTree(node->getLeft());
     deleteTree(node->getRight());
     delete node;
-}
-
-void BinaryTreeModel::preOrder(Node* node, std::vector<std::string>& result) {
-    if (node == nullptr) return;
-    result.push_back(node->getValue());
-    preOrder(node->getLeft(), result);
-    preOrder(node->getRight(), result);
-}
-
-void BinaryTreeModel::inOrder(Node* node, std::vector<std::string>& result) {
-    if (node == nullptr) return;
-    inOrder(node->getLeft(), result);
-    result.push_back(node->getValue());
-    inOrder(node->getRight(), result);
-}
-
-void BinaryTreeModel::inOrder(Node* node, std::vector<Node*>& nodes) {
-    if (node == nullptr) return;
-    inOrder(node->getLeft(), nodes);
-    nodes.push_back(node);
-    inOrder(node->getRight(), nodes);
-}
-
-void BinaryTreeModel::postOrder(Node* node, std::vector<std::string>& result) {
-    if (node == nullptr) return;
-    postOrder(node->getLeft(), result);
-    postOrder(node->getRight(), result);
-    result.push_back(node->getValue());
 }
 
 int BinaryTreeModel::height(Node* node) {
@@ -234,7 +209,7 @@ bool BinaryTreeModel::isBST(Node* node, Node* minNode, Node* maxNode) {
            isBST(node->getRight(), node, maxNode);
 }
 
-bool BinaryTreeModel::isValidInsertion(const Node* parent, const bool isLeft, const std::string& value) const {
+bool BinaryTreeModel::isValidInsertion(const Node* parent, const bool isLeft, const float& value) const {
     if (!parent) return false;
 
     if (isLeft && value >= parent->getValue()) return false;
@@ -252,5 +227,6 @@ bool BinaryTreeModel::isValidInsertion(const Node* parent, const bool isLeft, co
     }
     return true;
 }
+
 
 

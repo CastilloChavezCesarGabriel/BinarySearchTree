@@ -23,6 +23,10 @@ add_executable(BinaryTree main.cpp
         view/View.h
         controller/Controller.cpp
         controller/Controller.h
+        controller/DrawController.cpp
+        controller/DrawController.h
+        model/TreeTransversal.cpp
+        model/TreeTransversal.h
 )
 target_link_libraries(BinaryTree
   Qt::Core
