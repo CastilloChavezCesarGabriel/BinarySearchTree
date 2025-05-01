@@ -1,14 +1,14 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 #include <QObject>
-#include "../model/BinaryTreeModel.h"
+#include "../model/Model.h"
 #include "../view/View.h"
 #include "DrawController.h"
 
 class Controller final : public QObject {
     Q_OBJECT
 private:
-    BinaryTreeModel* model;
+    Model* model;
     View* view;
 
     static int countLeaves(Node* node);
@@ -17,7 +17,7 @@ private:
     void updateTree(Node* root);
 
 public:
-    Controller(BinaryTreeModel* model, View* view, QObject* parent = nullptr);
+    Controller(Model* model, View* view, QObject* parent = nullptr);
 
 private slots:
     void handleCreateRoot();

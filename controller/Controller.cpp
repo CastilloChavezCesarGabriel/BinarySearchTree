@@ -1,6 +1,6 @@
 #include "Controller.h"
 
-Controller::Controller(BinaryTreeModel* model, View* view, QObject* parent)
+Controller::Controller(Model* model, View* view, QObject* parent)
     : QObject(parent), model(model), view(view) {
 
     connect(view->getCreateRootButton(), &QPushButton::clicked, this, &Controller::handleCreateRoot);
@@ -70,7 +70,7 @@ void Controller::handleCreateNode() {
         return;
     }
 
-    if (!model->isBST(model->getRoot())) {
+    if (!model->isBST()) {
         view->showUserFeedback("BST validation failed after insertion!", false);
         return;
     }

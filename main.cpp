@@ -1,11 +1,11 @@
 #include <QApplication>
-#include "model/BinaryTreeModel.h"
+#include "model/Model.h"
 #include "view/View.h"
 #include "controller/Controller.h"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    BinaryTreeModel model;
+    Model model;
     View view;
     Controller controller(&model, &view);
     view.show();
