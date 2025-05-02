@@ -13,8 +13,6 @@ find_package(Qt6 COMPONENTS
   REQUIRED)
 
 add_executable(BinaryTree main.cpp
-        model/Node.cpp
-        model/Node.h
         model/Model.cpp
         model/Model.h
         view/View.cpp
@@ -23,11 +21,14 @@ add_executable(BinaryTree main.cpp
         controller/Controller.h
         controller/DrawController.cpp
         controller/DrawController.h
+        model/Node.cpp
+        model/Node.h
         model/TreeTraversal.cpp
         model/TreeTraversal.h
         model/BinarySearchTree.cpp
         model/BinarySearchTree.h
 )
+
 target_link_libraries(BinaryTree
   Qt::Core
   Qt::Gui
