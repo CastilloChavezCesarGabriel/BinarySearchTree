@@ -126,11 +126,11 @@ void View::drawLine(const int startX, const int startY, const int endX, const in
     scene->addLine(startX, startY, endX, endY,pen);
 }
 
-void View::showMessage(const QString &message) {
+void View::show(const QString &message) {
     QMessageBox::information(this, "Tree Info", message);
 }
 
-void View::showUserFeedback(const QString &message, const bool success) {
+void View::show(const QString &message, const bool success) {
     QMessageBox::information(this, success ? "Success" : "Oops", message);
 }
 
@@ -138,4 +138,13 @@ bool View::showConfirmation(const QString &message, const QString &title) {
     const QMessageBox::StandardButton reply = QMessageBox::question(this, title, message,
                                                               QMessageBox::Yes | QMessageBox::No);
     return reply == QMessageBox::Yes;
+}
+
+bool View::isValidInput(const QString& text, float& value, QString* errorMessage) {
+    bool ok;
+    value = text.toFloat(&ok);
+    if (!ok && errorMessage) {
+        *errorMessage = "Invalid float input!";
+    }
+    return ok;
 }

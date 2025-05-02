@@ -15,19 +15,18 @@ void Controller::handleCreateRoot() {
     const QString stringValue = view->getRootValue();
 
     if (stringValue.isEmpty()) {
-        view->showUserFeedback("Please enter a valid input!", false);
+        view->show("Please enter a valid input!", false);
         return;
     }
 
-    bool ok;
-    const float value = stringValue.toFloat(&ok);
-    if (!ok) {
-        view->showUserFeedback("Invalid number format!", false);
+    float value;
+    if (!view->isValidInput(stringValue, value,&error)) {
+        view->show(error, false);
         return;
     }
 
     if (model->isNodeExist(value)) {
-        view->showUserFeedback("Root already exists!",false);
+        view->show("Root already exists!",false);
         return;
     }
 
@@ -41,37 +40,35 @@ void Controller::handleCreateNode() {
     const QString stringValue = view->getValue()->text();
 
     if (stringParentValue.isEmpty() || stringValue.isEmpty()) {
-        view->showUserFeedback("Please fill all fields correctly!",false);
+        view->show("Please fill all fields correctly!",false);
         return;
     }
 
-    bool ok1, ok2;
-    float parentValue = stringParentValue.toFloat(&ok1);
-    const float value = stringValue.toFloat(&ok2);
-    if (!ok1 || !ok2) {
-        view->showUserFeedback("Invalid float input!", false);
+    float parentValue, value;
+    if (!view->isValidInput(stringParentValue,parentValue,&error) || !view->isValidInput(stringValue,value,&error)) {
+        view->show(error, false);
         return;
     }
 
     Node* parent = model->findNode(parentValue);
     if (!parent) {
-        view->showUserFeedback("Parent node not found!",false);
+        view->show("Parent node not found!",false);
         return;
     }
 
     const bool isLeft = side == "left";
     if (model->isNodeExist(value)) {
-        view->showUserFeedback("Node with this value already exists!",false);
+        view->show("Node with this value already exists!",false);
         return;
     }
 
     if (!model->isValidInsertion(parent, isLeft, value)) {
-        view->showUserFeedback("BST violation: Invalid position for new node!", false);
+        view->show("BST violation: Invalid position for new node!", false);
         return;
     }
 
     if (!model->isBST()) {
-        view->showUserFeedback("BST validation failed after insertion!", false);
+        view->show("BST validation failed after insertion!", false);
         return;
     }
 
@@ -81,15 +78,14 @@ void Controller::handleCreateNode() {
 
 void Controller::handleDeleteRoot() {
     if (!model->getRoot()) {
-        view->showUserFeedback("No root exists to delete!", false);
+        view->show("No root exists to delete!", false);
         return;
     }
 
-    if (view->showConfirmation("Are you sure you want to delete this root? "
-                               "The whole tree will be deleted!", "Delete Root")) {
+    if (view->showConfirmation("Are you sure? The whole tree will be deleted!", "Delete Root")) {
         model->deleteRoot();
         updateTree(model->getRoot());
-        view->showUserFeedback("Root node deleted successfully!", true);
+        view->show("Root node deleted successfully!", true);
     }
 }
 
@@ -98,44 +94,42 @@ void Controller::handleDeleteNode() {
     const bool isLeft = view->getSideValue()->currentText().toLower() == "left";
     const QString stringValue = view->getValue()->text();
 
-    bool ok1, ok2;
-    float parentValue = stringParent.toFloat(&ok1);
-    float value = stringValue.toFloat(&ok2);
-    if (!ok1 || !ok2) {
-        view->showUserFeedback("Invalid float input for deletion!", false);
+    float parentValue, value;
+    if (!view->isValidInput(stringParent,parentValue,&error) || !view->isValidInput(stringValue,value,&error)) {
+        view->show(error, false);
         return;
     }
 
     if (view->showConfirmation("Are you sure you want to delete this node?", "Delete Node")) {
         if (!model->deleteNode(parentValue, isLeft, value)) {
-            view->showUserFeedback("Could not delete node. Check parent, side, and node value.",false);
+            view->show("Could not delete node. Check parent, side, and node value.",false);
         } else {
             updateTree(model->getRoot());
-            view->showUserFeedback("Node deleted successfully!", true);
+            view->show("Node deleted successfully!", true);
         }
     }
 }
 
 void Controller::handleBalanceTree() {
     if (!model->getRoot()) {
-        view->showUserFeedback("Tree is empty, cannot balance!", false);
+        view->show("Tree is empty, cannot balance!", false);
         return;
     }
 
     if (model->isAVL()) {
-        view->showUserFeedback("The tree is already balanced.", true);
+        view->show("The tree is already balanced.", true);
         return;
     }
 
     Node* newRoot = model->balance(model->getRoot());
     model->setRoot(newRoot);
     updateTree(newRoot);
-    view->showUserFeedback("Tree balanced successfully!", true);
+    view->show("Tree balanced successfully!", true);
 }
 
 void Controller::handleShowInfo() const {
     const QString info = QString::fromStdString(model->getInfo());
-    view->showMessage(info);
+    view->show(info);
 }
 
 void Controller::updateTree(Node* root) {

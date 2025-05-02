@@ -10,6 +10,7 @@ class Controller final : public QObject {
 private:
     Model* model;
     View* view;
+    QString error;
 
     static int countLeaves(Node* node);
     void drawSubtree(Node* child, const DrawController& node);
