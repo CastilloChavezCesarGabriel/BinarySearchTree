@@ -96,7 +96,7 @@ void Controller::handleDeleteNode() {
 
     float parentValue, value;
     if (!view->isValidInput(stringParent,parentValue,&error) || !view->isValidInput(stringValue,value,&error)) {
-        view->showUserFeedback(error, false);
+        view->showUserFeedback("Node is empty or doesn't exist!", false);
         return;
     }
 
