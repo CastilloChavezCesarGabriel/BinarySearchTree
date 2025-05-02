@@ -25,8 +25,8 @@ void Controller::handleCreateRoot() {
         return;
     }
 
-    if (model->isNodeExist(value)) {
-        view->showUserFeedback("Root already exists!",false);
+    if (model->isNodeExist(value) || model->getRoot() && model->getRoot()->getValue() != value) {
+        view->showUserFeedback("Root already exists!", false);
         return;
     }
 
