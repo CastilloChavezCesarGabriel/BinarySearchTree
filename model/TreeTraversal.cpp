@@ -1,5 +1,4 @@
 #include "TreeTraversal.h"
-
 #include <queue>
 
 TreeTraversal::TreeTraversal() {}
