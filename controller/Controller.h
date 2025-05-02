@@ -11,10 +11,8 @@ private:
     Model* model;
     View* view;
     QString error;
+    DrawController layout;
 
-    static int countLeaves(Node* node);
-    void drawSubtree(Node* child, const DrawController& node);
-    void drawTree(Node* node, int x, int y, int horizontalOffset);
     void updateTree(Node* root);
 
 public:

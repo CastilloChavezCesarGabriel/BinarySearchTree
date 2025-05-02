@@ -1,4 +1,5 @@
 #include "Controller.h"
+#include "DrawController.h"
 
 Controller::Controller(Model* model, View* view, QObject* parent)
     : QObject(parent), model(model), view(view) {
@@ -134,45 +135,6 @@ void Controller::handleShowInfo() const {
 
 void Controller::updateTree(Node* root) {
     view->clearScene();
-    drawTree(root, 400, 50, 100);
+    layout.onCreateLayout(root, 0, 75);
+    layout.onDrawTree(view, root);
 }
-
-int Controller::countLeaves(Node* node) {
-    if (!node) return 0;
-    if (!node->getLeft() && !node->getRight()) return 1;
-
-    return countLeaves(node->getLeft()) + countLeaves(node->getRight());
-}
-
-void Controller::drawSubtree(Node* child, const DrawController& node) {
-    if (!child) return;
-
-    constexpr int baseOffset = 50;
-    constexpr int verticalSpacing = 75;
-
-    const int leaves = countLeaves(child);
-    const int childX = node.getChildX(baseOffset, leaves);
-    const int childY = node.getChildY(verticalSpacing);
-
-    view->drawLine(node.getParentX(), node.getParentY(), childX, childY, QColor(165, 42, 42));
-    drawTree(child, childX, childY, node.getHorizontalOffSet() / 2);
-}
-
-void Controller::drawTree(Node* node, const int x, const int y, const int horizontalOffset) {
-    if (!node) return;
-
-    constexpr int radius = 20;
-    view->drawCircle(x, y, radius,Qt::darkGreen);
-    view->drawText(x - 10, y - 10, QString::number(node->getValue()));
-
-    if (node->getLeft()) {
-        DrawController left(x, y, horizontalOffset, -1);
-        drawSubtree(node->getLeft(), left);
-    }
-
-    if (node->getRight()) {
-        DrawController right(x, y, horizontalOffset, 1);
-        drawSubtree(node->getRight(), right);
-    }
-}
-

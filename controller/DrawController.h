@@ -1,23 +1,20 @@
 #ifndef DRAWCONTROLLER_H
 #define DRAWCONTROLLER_H
+#include "../model/Model.h"
+#include "../view/View.h"
+#include <unordered_map>
 
 class DrawController {
-private:
-    int parentX;
-    int parentY;
-    int horizontalOffset;
-    int direction;
-
 public:
-    DrawController(int x, int y, int offset, int direction);
+    void onCreateLayout(Node* root, int startX, int spacing);
+    void onDrawTree(View* view, Node* node);
 
-    int getChildX(int baseOffset, int childLeaves) const;
-    int getChildY(int verticalSpacing) const;
-    int getParentX() const;
-    int getParentY() const;
-    int getHorizontalOffSet() const;
+private:
+    int currentX = 0;
+    std::unordered_map<Node*, int> horizontalPosition;
+    std::unordered_map<Node*, int> verticalPosition;
+
+    void onAssignCoordinates(Node* node, int depth, int spacing);
 };
-
-
 
 #endif //DRAWCONTROLLER_H
