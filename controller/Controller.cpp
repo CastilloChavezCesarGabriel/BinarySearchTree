@@ -20,7 +20,7 @@ void Controller::handleCreateRoot() {
     }
 
     bool ok;
-    float value = stringValue.toFloat(&ok);
+    const float value = stringValue.toFloat(&ok);
     if (!ok) {
         view->showUserFeedback("Invalid number format!", false);
         return;
@@ -47,7 +47,7 @@ void Controller::handleCreateNode() {
 
     bool ok1, ok2;
     float parentValue = stringParentValue.toFloat(&ok1);
-    float value = stringValue.toFloat(&ok2);
+    const float value = stringValue.toFloat(&ok2);
     if (!ok1 || !ok2) {
         view->showUserFeedback("Invalid float input!", false);
         return;
@@ -156,9 +156,9 @@ void Controller::drawSubtree(Node* child, const DrawController& node) {
     constexpr int baseOffset = 50;
     constexpr int verticalSpacing = 75;
 
-    int leaves = countLeaves(child);
-    int childX = node.getChildX(baseOffset, leaves);
-    int childY = node.getChildY(verticalSpacing);
+    const int leaves = countLeaves(child);
+    const int childX = node.getChildX(baseOffset, leaves);
+    const int childY = node.getChildY(verticalSpacing);
 
     view->drawLine(node.getParentX(), node.getParentY(), childX, childY, QColor(165, 42, 42));
     drawTree(child, childX, childY, node.getHorizontalOffSet() / 2);
