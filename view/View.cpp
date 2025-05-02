@@ -126,11 +126,11 @@ void View::drawLine(const int startX, const int startY, const int endX, const in
     scene->addLine(startX, startY, endX, endY,pen);
 }
 
-void View::show(const QString &message) {
+void View::showMessage(const QString &message) {
     QMessageBox::information(this, "Tree Info", message);
 }
 
-void View::show(const QString &message, const bool success) {
+void View::showUserFeedback(const QString &message, const bool success) {
     QMessageBox::information(this, success ? "Success" : "Oops", message);
 }
 

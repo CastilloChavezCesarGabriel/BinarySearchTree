@@ -28,8 +28,8 @@ public:
     void drawCircle(int centerX, int centerY, int radius, const QColor &color) const;
     void drawText(int x, int y, const QString &text) const;
     void drawLine(int startX, int startY, int endX, int endY, const QColor &color) const;
-    void show(const QString &message);
-    void show(const QString &message, bool success);
+    void showMessage(const QString &message);
+    void showUserFeedback(const QString &message, bool success);
     bool showConfirmation(const QString &message, const QString &title);
     static bool isValidInput(const QString& text, float& value, QString* errorMessage);
 
