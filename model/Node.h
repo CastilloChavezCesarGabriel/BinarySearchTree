@@ -12,8 +12,8 @@ public:
     explicit Node(float value);
 
     float getValue() const;
-    Node *&getLeft();
-    Node *&getRight();
+    Node *getLeft() const;
+    Node *getRight() const;
     void setLeft(Node* node);
     void setRight(Node* node);
 };

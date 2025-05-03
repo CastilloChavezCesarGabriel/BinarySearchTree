@@ -1,16 +1,16 @@
 #include "Node.h"
 
-Node::Node(float value) : value(value) {}
+Node::Node(const float value) : value(value) {}
 
 float Node::getValue() const {
     return value;
 }
 
-Node *&Node::getLeft() {
+Node *Node::getLeft() const {
     return left;
 }
 
-Node *&Node::getRight() {
+Node *Node::getRight() const {
     return right;
 }
 
