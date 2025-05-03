@@ -1,6 +1,8 @@
 #include "DrawController.h"
 
 void DrawController::onCreateLayout(Node* root, const int startX, const int spacing) {
+    horizontalPosition.clear();
+    verticalPosition.clear();
     currentX = startX;
     onAssignCoordinates(root, 0, spacing);
 }

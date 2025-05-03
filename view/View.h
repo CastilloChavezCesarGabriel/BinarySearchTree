@@ -22,8 +22,7 @@ public:
     QLineEdit* getParentValue() const;
     QComboBox* getSideValue() const;
     QLineEdit* getValue() const;
-
-
+    
     void clearScene() const;
     void drawCircle(int centerX, int centerY, int radius, const QColor &color) const;
     void drawText(int x, int y, const QString &text) const;
