@@ -10,7 +10,7 @@ View::View(QWidget *parent) : QWidget(parent) {
 }
 
 void View::setupUI() {
-    setWindowTitle("Binary Tree Implementation");
+    setWindowTitle("Binary Search Tree");
     resize(650, 350);
 
     scene = new QGraphicsScene(this);
