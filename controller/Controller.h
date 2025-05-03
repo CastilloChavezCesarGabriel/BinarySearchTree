@@ -1,6 +1,5 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
-#include <QObject>
 #include "../model/Model.h"
 #include "../view/View.h"
 #include "DrawController.h"
@@ -13,7 +12,7 @@ private:
     QString error;
     DrawController layout;
 
-    void updateTree(Node* root);
+    void onUpdateTree(Node* root);
 
 public:
     Controller(Model* model, View* view, QObject* parent = nullptr);

@@ -21,3 +21,7 @@ void Node::setLeft(Node* node) {
 void Node::setRight(Node* node) {
     right = node;
 }
+
+void Node::setValue(const float value) {
+    this->value = value;
+}

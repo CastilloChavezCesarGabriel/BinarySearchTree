@@ -33,8 +33,20 @@ void Model::createNode(Node* parent, const bool isLeft, const float& value) {
 }
 
 void Model::deleteRoot() {
-    tree.deleteTree(getRoot());
-    setRoot(nullptr);
+    Node* root = getRoot();
+    if (!root) return;
+
+    Node* replacement = nullptr;
+    if (root->getLeft() && !root->getRight()) {
+        replacement = root->getLeft();
+    } else if (!root->getLeft() && root->getRight()) {
+        replacement = root->getRight();
+    } else if (root->getLeft() && root->getRight()) {
+        replacement = replaceNode(root);
+    }
+
+    setRoot(replacement);
+    delete root;
 }
 
 bool Model::deleteNode(const float& parentValue, const bool isLeft, const float& value) const {
@@ -47,12 +59,7 @@ bool Model::deleteNode(const float& parentValue, const bool isLeft, const float&
     if (!child) return false;
     if (child->getValue() != value) return false;
 
-    Node* replacement = nullptr;
-    if (child->getLeft() && !child->getRight()) {
-        replacement = child->getLeft();
-    } else if (!child->getLeft() && child->getRight()) {
-        replacement = child->getRight();
-    }
+    Node* replacement = replaceNode(child);
 
     if (isLeft) {
         parent->setLeft(replacement);
@@ -62,6 +69,37 @@ bool Model::deleteNode(const float& parentValue, const bool isLeft, const float&
 
     delete child;
     return true;
+}
+
+Node* Model::replaceNode(Node* node) const {
+    if (!node) return nullptr;
+
+    if (!node->getLeft() && !node->getRight()) {
+        return nullptr;
+    }
+
+    if (!node->getLeft()) {
+        return node->getRight();
+    }
+    if (!node->getRight()) {
+        return node->getLeft();
+    }
+
+    Node* successorParent = node;
+    Node* successor = node->getRight();
+
+    while (successor->getLeft()) {
+        successorParent = successor;
+        successor = successor->getLeft();
+    }
+
+    if (successorParent != node) {
+        successorParent->setLeft(successor->getRight());
+        successor->setRight(node->getRight());
+    }
+
+    successor->setLeft(node->getLeft());
+    return successor;
 }
 
 Node* Model::findNode(const float& value) const {

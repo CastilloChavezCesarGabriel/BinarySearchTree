@@ -32,7 +32,7 @@ void Controller::handleCreateRoot() {
     }
 
     model->createRoot(value);
-    updateTree(model->getRoot());
+    onUpdateTree(model->getRoot());
 }
 
 void Controller::handleCreateNode() {
@@ -74,7 +74,7 @@ void Controller::handleCreateNode() {
     }
 
     model->createNode(parent, isLeft, value);
-    updateTree(model->getRoot());
+    onUpdateTree(model->getRoot());
 }
 
 void Controller::handleDeleteRoot() {
@@ -83,9 +83,9 @@ void Controller::handleDeleteRoot() {
         return;
     }
 
-    if (view->showConfirmation("Are you sure? The whole tree will be deleted!", "Delete Root")) {
+    if (view->showConfirmation("Are you sure you want to delete this root? ", "Delete Root")) {
         model->deleteRoot();
-        updateTree(model->getRoot());
+        onUpdateTree(model->getRoot());
         view->showUserFeedback("Root node deleted successfully!", true);
     }
 }
@@ -105,7 +105,7 @@ void Controller::handleDeleteNode() {
         if (!model->deleteNode(parentValue, isLeft, value)) {
             view->showUserFeedback("Could not delete node. Check parent, side, and node value.",false);
         } else {
-            updateTree(model->getRoot());
+            onUpdateTree(model->getRoot());
             view->showUserFeedback("Node deleted successfully!", true);
         }
     }
@@ -124,7 +124,7 @@ void Controller::handleBalanceTree() {
 
     Node* newRoot = model->balance(model->getRoot());
     model->setRoot(newRoot);
-    updateTree(newRoot);
+    onUpdateTree(newRoot);
     view->showUserFeedback("Tree balanced successfully!", true);
 }
 
@@ -133,7 +133,7 @@ void Controller::handleShowInfo() const {
     view->showMessage(info);
 }
 
-void Controller::updateTree(Node* root) {
+void Controller::onUpdateTree(Node* root) {
     view->clearScene();
     layout.onCreateLayout(root, 0, 75);
     layout.onDrawTree(view, root);

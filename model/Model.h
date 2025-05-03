@@ -30,6 +30,7 @@ public:
 
 private:
     BinarySearchTree tree;
+    Node* replaceNode(Node* node) const;
     static Node* findNodeRecursive(Node* node, const float& value);
 };
 
