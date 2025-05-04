@@ -6,16 +6,16 @@
 Controller::Controller(Model* model, View* view, QObject* parent)
     : QObject(parent), model(model), view(view) {
 
-    connect(view->getCreateRootButton(), &QPushButton::clicked, this, &Controller::handleCreateRoot);
-    connect(view->getCreateNodeButton(), &QPushButton::clicked, this, &Controller::handleCreateNode);
-    connect(view->getDeleteRootButton(), &QPushButton::clicked, this, &Controller::handleDeleteRoot);
-    connect(view->getDeleteNodeButton(), &QPushButton::clicked, this, &Controller::handleDeleteNode);
+    connect(view->getCreateRootButton(), &QPushButton::clicked, this, &Controller::handleAddRoot);
+    connect(view->getCreateNodeButton(), &QPushButton::clicked, this, &Controller::handleAddNode);
+    connect(view->getDeleteRootButton(), &QPushButton::clicked, this, &Controller::handleRemoveRoot);
+    connect(view->getDeleteNodeButton(), &QPushButton::clicked, this, &Controller::handleRemoveNode);
     connect(view->getInfoButton(), &QPushButton::clicked, this, &Controller::handleShowInfo);
     connect(view->getBalanceButton(), &QPushButton::clicked, this, &Controller::handleBalanceTree);
     connect(view->getExportButton(), &QPushButton::clicked, this, &Controller::handleExport);
 }
 
-void Controller::handleCreateRoot() {
+void Controller::handleAddRoot() {
     const QString stringValue = view->getRootValue();
 
     if (stringValue.isEmpty()) {
@@ -38,7 +38,7 @@ void Controller::handleCreateRoot() {
     onUpdateTree(model->getRoot());
 }
 
-void Controller::handleCreateNode() {
+void Controller::handleAddNode() {
     const QString stringParentValue = view->getParentValue()->text();
     const QString side = view->getSideValue()->currentText();
     const QString stringValue = view->getValue()->text();
@@ -80,7 +80,7 @@ void Controller::handleCreateNode() {
     onUpdateTree(model->getRoot());
 }
 
-void Controller::handleDeleteRoot() {
+void Controller::handleRemoveRoot() {
     if (!model->getRoot()) {
         view->showUserFeedback("No root exists to delete!", false);
         return;
@@ -93,7 +93,7 @@ void Controller::handleDeleteRoot() {
     }
 }
 
-void Controller::handleDeleteNode() {
+void Controller::handleRemoveNode() {
     const QString stringParent = view->getParentValue()->text();
     const bool isLeft = view->getSideValue()->currentText().toLower() == "left";
     const QString stringValue = view->getValue()->text();

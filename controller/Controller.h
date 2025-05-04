@@ -18,10 +18,10 @@ public:
     Controller(Model* model, View* view, QObject* parent = nullptr);
 
 private slots:
-    void handleCreateRoot();
-    void handleCreateNode();
-    void handleDeleteRoot();
-    void handleDeleteNode();
+    void handleAddRoot();
+    void handleAddNode();
+    void handleRemoveRoot();
+    void handleRemoveNode();
     void handleBalanceTree();
     void handleShowInfo() const;
     void handleExport() const;
