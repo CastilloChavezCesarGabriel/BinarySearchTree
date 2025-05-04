@@ -158,7 +158,7 @@ void Controller::handleExport() const {
     scene->render(&painter, QRectF(), bounds);
     painter.end();
 
-    const QString fileName = QFileDialog::getSaveFileName(view, "Save Tree Image", "", "PNG;;JPEG");
+    const QString fileName = QFileDialog::getSaveFileName(view, "Save Tree Image", "", "PNG (*.png);;JPEG (*.jpg)");
     if (!fileName.isEmpty()) {
         image.save(fileName);
         view->showUserFeedback("Tree exported successfully!", true);
