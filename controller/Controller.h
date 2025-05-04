@@ -24,7 +24,7 @@ private slots:
     void handleDeleteNode();
     void handleBalanceTree();
     void handleShowInfo() const;
-    void onExport() const;
+    void handleExport() const;
 };
 
 #endif //CONTROLLER_H
