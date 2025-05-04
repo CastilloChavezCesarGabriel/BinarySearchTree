@@ -150,8 +150,9 @@ void Controller::handleExport() const {
         return;
     }
 
+    constexpr qreal scaleFactor = 3.0;
     const QRectF bounds = scene->itemsBoundingRect();
-    QImage image(bounds.size().toSize(), QImage::Format_ARGB32);
+    QImage image((bounds.size() * scaleFactor).toSize(), QImage::Format_ARGB32);
     image.fill(Qt::white);
 
     QPainter painter(&image);
