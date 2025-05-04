@@ -14,6 +14,7 @@ void View::setupUI() {
     resize(650, 350);
 
     scene = new QGraphicsScene(this);
+    scene->setBackgroundBrush(Qt::white);
     view = new QGraphicsView(scene);
 
     rootInput = new QLineEdit;
@@ -35,15 +36,20 @@ void View::setupUI() {
     balanceLayout->addWidget(balanceBtn);
 
     infoBtn = new QPushButton("Show Info");
+    exportImageBtn = new QPushButton("Export BST");
 
     mainLayout = new QHBoxLayout(this);
     leftLayout = new QVBoxLayout;
 
-    topLayout = new QHBoxLayout;
-    topLayout->addWidget(rootInput);
+    topLeftLayout = new QHBoxLayout;
+    topLeftLayout->addWidget(rootInput);
+
+    topRightLayout = new QHBoxLayout;
+    topRightLayout->addWidget(infoBtn);
+    topRightLayout->addWidget(exportImageBtn);
 
     formLayout = new QFormLayout;
-    formLayout->addRow("Root Value:", topLayout);
+    formLayout->addRow("Root Value:", topLeftLayout);
     formLayout->addWidget(createRootBtn);
     formLayout->addWidget(deleteRootBtn);
     formLayout->addRow("Parent Value:", parentInput);
@@ -57,7 +63,7 @@ void View::setupUI() {
     leftLayout->setAlignment(Qt::AlignVCenter);
 
     rightLayout = new QVBoxLayout;
-    rightLayout->addWidget(infoBtn, 0, Qt::AlignTop);
+    rightLayout->addLayout(topRightLayout);
     rightLayout->addWidget(view, 1);
 
     mainLayout->addLayout(leftLayout, 1);
@@ -90,6 +96,10 @@ QPushButton* View::getInfoButton() const {
     return infoBtn;
 }
 
+QPushButton* View::getExportButton() const {
+    return exportImageBtn;
+}
+
 QString View::getRootValue() const {
     return rootInput->text();
 }
@@ -106,23 +116,27 @@ QLineEdit* View::getValue() const {
     return valueInput;
 }
 
+QGraphicsScene* View::getScene() const {
+    return scene;
+}
+
 void View::clearScene() const {
     scene->clear();
 }
 
 void View::drawCircle(const int centerX, const int centerY, const int radius, const QColor &color) const {
-    QPen pen;
-    pen.setColor(color);
+    const QPen pen(color);
     scene->addEllipse(centerX - radius, centerY - radius, radius * 2, radius * 2, pen);
 }
 
 void View::drawText(const int x, const int y, const QString &text) const {
-    scene->addText(text)->setPos(x, y);
+    QGraphicsTextItem* label = scene->addText(text);
+    label->setDefaultTextColor(Qt::black);
+    label->setPos(x, y);
 }
 
 void View::drawLine(const int startX, const int startY, const int endX, const int endY, const QColor &color) const {
-    QPen pen;
-    pen.setColor(color);
+    const QPen pen(color);
     scene->addLine(startX, startY, endX, endY,pen);
 }
 

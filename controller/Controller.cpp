@@ -1,5 +1,7 @@
 #include "Controller.h"
 #include "DrawController.h"
+#include <QFileDialog>
+#include <QPainter>
 
 Controller::Controller(Model* model, View* view, QObject* parent)
     : QObject(parent), model(model), view(view) {
@@ -10,6 +12,7 @@ Controller::Controller(Model* model, View* view, QObject* parent)
     connect(view->getDeleteNodeButton(), &QPushButton::clicked, this, &Controller::handleDeleteNode);
     connect(view->getInfoButton(), &QPushButton::clicked, this, &Controller::handleShowInfo);
     connect(view->getBalanceButton(), &QPushButton::clicked, this, &Controller::handleBalanceTree);
+    connect(view->getExportButton(), &QPushButton::clicked, this, &Controller::onExport);
 }
 
 void Controller::handleCreateRoot() {
@@ -137,4 +140,29 @@ void Controller::onUpdateTree(Node* root) {
     view->clearScene();
     layout.onCreateLayout(root, 0, 75);
     layout.onDrawTree(view, root);
+}
+
+void Controller::onExport() const {
+    QGraphicsScene* scene = view->getScene();
+
+    if (!scene || scene->items().isEmpty()) {
+        view->showUserFeedback("No tree to export!", false);
+        return;
+    }
+
+    QRectF bounds = scene->itemsBoundingRect();
+    QImage image(bounds.size().toSize(), QImage::Format_ARGB32);
+    image.fill(Qt::white);
+
+    QPainter painter(&image);
+    scene->render(&painter, QRectF(), bounds);
+    painter.end();
+
+    const QString fileName = QFileDialog::getSaveFileName(view, "Save Tree Image", "", "PNG Files (*.png);;JPEG Files (*.jpg)");
+    if (!fileName.isEmpty()) {
+        image.save(fileName);
+        view->showUserFeedback("Tree exported successfully!", true);
+    } else {
+        view->showUserFeedback("Export canceled.", false);
+    }
 }

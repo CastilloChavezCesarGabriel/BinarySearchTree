@@ -1,7 +1,6 @@
 #ifndef VIEW_H
 #define VIEW_H
 #include <QFormLayout>
-#include <QWidget>
 #include <QGraphicsScene>
 #include <QLineEdit>
 #include <QPushButton>
@@ -18,10 +17,12 @@ public:
     QPushButton* getDeleteNodeButton() const;
     QPushButton* getBalanceButton() const;
     QPushButton* getInfoButton() const;
+    QPushButton* getExportButton() const;
     QString getRootValue() const;
     QLineEdit* getParentValue() const;
     QComboBox* getSideValue() const;
     QLineEdit* getValue() const;
+    QGraphicsScene* getScene() const;
     
     void clearScene() const;
     void drawCircle(int centerX, int centerY, int radius, const QColor &color) const;
@@ -38,7 +39,7 @@ private:
 
     QLineEdit *rootInput{};
     QLineEdit *parentInput{};
-    QComboBox* sideInput{};
+    QComboBox *sideInput{};
     QLineEdit *valueInput{};
 
     QPushButton *createRootBtn{};
@@ -47,9 +48,11 @@ private:
     QPushButton *deleteNodeBtn{};
     QPushButton *balanceBtn{};
     QPushButton *infoBtn{};
+    QPushButton *exportImageBtn{};
 
     QHBoxLayout *mainLayout{};
-    QHBoxLayout *topLayout{};
+    QHBoxLayout *topLeftLayout{};
+    QHBoxLayout *topRightLayout{};
     QHBoxLayout *balanceLayout{};
     QVBoxLayout *leftLayout{};
     QVBoxLayout *rightLayout{};
