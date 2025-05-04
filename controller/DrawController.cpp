@@ -22,7 +22,7 @@ void DrawController::onDrawTree(View* view, Node* node) {
     const int y = verticalPosition[node];
 
     view->drawCircle(x, y, 20, Qt::darkGreen);
-    view->drawText(x - 10, y - 10, QString::number(node->getValue()));
+    view->drawText(x - 15, y - 10, QString::number(node->getValue()));
 
     if (node->getLeft()) {
         const int leftX = horizontalPosition[node->getLeft()] * 60;
