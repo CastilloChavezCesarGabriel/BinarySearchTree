@@ -7,10 +7,10 @@ class Model {
 public:
     Model();
 
-    void createRoot(const float& value);
-    static void createNode(Node* parent, bool isLeft, const float& value);
-    void deleteRoot();
-    bool deleteNode(const float& parentValue, bool isLeft, const float& value) const;
+    void addRoot(const float& value);
+    static void addNode(Node* parent, bool isLeft, const float& value);
+    void removeRoot();
+    bool removeNode(const float& parentValue, bool isLeft, const float& value) const;
     Node* findNode(const float& value) const;
 
     bool isAVL() const;

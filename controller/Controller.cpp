@@ -34,7 +34,7 @@ void Controller::handleCreateRoot() {
         return;
     }
 
-    model->createRoot(value);
+    model->addRoot(value);
     onUpdateTree(model->getRoot());
 }
 
@@ -76,7 +76,7 @@ void Controller::handleCreateNode() {
         return;
     }
 
-    model->createNode(parent, isLeft, value);
+    model->addNode(parent, isLeft, value);
     onUpdateTree(model->getRoot());
 }
 
@@ -87,7 +87,7 @@ void Controller::handleDeleteRoot() {
     }
 
     if (view->showConfirmation("Are you sure you want to delete this root? ", "Delete Root")) {
-        model->deleteRoot();
+        model->removeRoot();
         onUpdateTree(model->getRoot());
         view->showUserFeedback("Root node deleted successfully!", true);
     }
@@ -105,7 +105,7 @@ void Controller::handleDeleteNode() {
     }
 
     if (view->showConfirmation("Are you sure you want to delete this node?", "Delete Node")) {
-        if (!model->deleteNode(parentValue, isLeft, value)) {
+        if (!model->removeNode(parentValue, isLeft, value)) {
             view->showUserFeedback("Could not delete node. Check parent, side, and node value.",false);
         } else {
             onUpdateTree(model->getRoot());

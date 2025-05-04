@@ -14,13 +14,13 @@ bool Model::isNodeExist(const float& value) const {
     return findNode(value) != nullptr;
 }
 
-void Model::createRoot(const float& value) {
+void Model::addRoot(const float& value) {
     if (!getRoot()) {
        setRoot(new Node(value));
     }
 }
 
-void Model::createNode(Node* parent, const bool isLeft, const float& value) {
+void Model::addNode(Node* parent, const bool isLeft, const float& value) {
     if (parent == nullptr) return;
 
     if (isLeft) {
@@ -32,7 +32,7 @@ void Model::createNode(Node* parent, const bool isLeft, const float& value) {
     }
 }
 
-void Model::deleteRoot() {
+void Model::removeRoot() {
     Node* root = getRoot();
     if (!root) return;
 
@@ -49,7 +49,7 @@ void Model::deleteRoot() {
     delete root;
 }
 
-bool Model::deleteNode(const float& parentValue, const bool isLeft, const float& value) const {
+bool Model::removeNode(const float& parentValue, const bool isLeft, const float& value) const {
     if (!getRoot()) return false;
 
     Node* parent = findNode(parentValue);
