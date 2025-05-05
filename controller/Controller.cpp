@@ -7,11 +7,11 @@ Controller::Controller(Model* model, View* view, QObject* parent)
 
     connect(view, &View::onAddRootRequested, this, &Controller::handleAddRoot);
     connect(view, &View::onAddNodeRequested, this, &Controller::handleAddNode);
-    connect(view, &View::onRemoveRootButton, this, &Controller::handleRemoveRoot);
-    connect(view, &View::onRemoveNodeButton, this, &Controller::handleRemoveNode);
-    connect(view, &View::onInfoButton, this, &Controller::handleShowInfo);
-    connect(view, &View::onBalanceButton, this, &Controller::handleBalanceTree);
-    connect(view, &View::onExportButton, this, &Controller::handleExport);
+    connect(view, &View::onRemoveRootRequested, this, &Controller::handleRemoveRoot);
+    connect(view, &View::onRemoveNodeRequested, this, &Controller::handleRemoveNode);
+    connect(view, &View::onInfoRequested, this, &Controller::handleShowInfo);
+    connect(view, &View::onBalanceRequested, this, &Controller::handleBalanceTree);
+    connect(view, &View::onExportRequested, this, &Controller::handleExport);
 }
 
 void Controller::handleAddRoot(const QString &stringValue) {

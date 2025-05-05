@@ -83,16 +83,16 @@ void View::setUpConnections() {
     };
 
     auto removeNode = [this]() {
-        emit onRemoveNodeButton(parentInput->text(), sideInput->currentText(), valueInput->text());
+        emit onRemoveNodeRequested(parentInput->text(), sideInput->currentText(), valueInput->text());
     };
 
     connect(addRootBtn, &QPushButton::clicked, this, addRoot);
     connect(addNodeBtn, &QPushButton::clicked, this, addNode);
-    connect(removeRootBtn, &QPushButton::clicked, this, &View::onRemoveRootButton);
+    connect(removeRootBtn, &QPushButton::clicked, this, &View::onRemoveRootRequested);
     connect(removeNodeBtn, &QPushButton::clicked, this, removeNode);
-    connect(infoBtn, &QPushButton::clicked, this, &View::onInfoButton);
-    connect(balanceBtn, &QPushButton::clicked, this, &View::onBalanceButton);
-    connect(exportImageBtn, &QPushButton::clicked, this, &View::onExportButton);
+    connect(infoBtn, &QPushButton::clicked, this, &View::onInfoRequested);
+    connect(balanceBtn, &QPushButton::clicked, this, &View::onBalanceRequested);
+    connect(exportImageBtn, &QPushButton::clicked, this, &View::onExportRequested);
 }
 
 void View::clearScene() const {

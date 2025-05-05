@@ -53,11 +53,11 @@ public:
 signals:
     void onAddRootRequested(const QString &value);
     void onAddNodeRequested(const QString &parent, const QString &side, const QString &value);
-    void onRemoveNodeButton(const QString &parent, const QString &side, const QString &value);
-    void onRemoveRootButton();
-    void onInfoButton();
-    void onBalanceButton();
-    void onExportButton();
+    void onRemoveNodeRequested(const QString &parent, const QString &side, const QString &value);
+    void onRemoveRootRequested();
+    void onInfoRequested();
+    void onBalanceRequested();
+    void onExportRequested();
 };
 
 #endif //VIEW_H
