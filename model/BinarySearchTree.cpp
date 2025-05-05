@@ -145,7 +145,7 @@ void BinarySearchTree::removeTree(Node* node) {
     delete node;
 }
 
-std::string BinarySearchTree::formatFloat(float value) {
+std::string BinarySearchTree::formatFloat(const float value) {
     std::ostringstream oss;
     oss << std::defaultfloat << value;
     return oss.str();
