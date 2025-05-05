@@ -56,7 +56,7 @@ Before setting up Qt6, make sure you have the following apps and tools installed
 
 1. **Visual Studio** (2022 or Latest version): [Visual Studio](https://visualstudio.microsoft.com/)
 
-3. **MinGW or MSVC Compiler**: [MinGW](https://osdn.net/projects/mingw/releases/). MSVC is usually installed along with Visual Studio.
+3. **MinGW or MSVC Compiler**: [MinGW](https://sourceforge.net/projects/mingw-w64/). MSVC is usually installed along with Visual Studio.
 
 ### Steps
 When installing Qt 6 using the Qt Installer, follow these steps:
@@ -75,8 +75,8 @@ When installing Qt 6 using the Qt Installer, follow these steps:
 3. **Set Up the Qt Version**:
 - Once the extension is installed, go to **Extensions → Qt VS Tools → Qt Versions**.
 - Click **Add**, then browse to the path where Qt was installed:
-  - **MinGW**: "C:/Qt/6.*/mingw*/lib/cmake/Qt6"
-  - **MSVC**: "C:/Qt/6.*/msvc*/lib/cmake/Qt6"
+  - **MinGW**: C:/Qt/6.* /mingw* /lib/cmake/Qt6
+  - **MSVC**: "C:/Qt/6.* /msvc* /lib/cmake/Qt6"
 - Click **OK** to register it.
 
 4. **Create a Qt project**
@@ -159,5 +159,5 @@ When installing Qt 6 using the Qt Installer, follow these steps:
 # License
 MIT License.
 
-## Acknowledgements
+# Acknowledgements
 This project was created as an educational example for demonstrating the Model-View-Controller (MVC) design pattern in C++ with Qt.
