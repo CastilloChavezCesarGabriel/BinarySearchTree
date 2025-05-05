@@ -9,30 +9,6 @@
 
 class View final : public QWidget {
     Q_OBJECT
-public:
-    explicit View(QWidget *parent = nullptr);
-    QPushButton* getCreateRootButton() const;
-    QPushButton* getCreateNodeButton() const;
-    QPushButton* getDeleteRootButton() const;
-    QPushButton* getDeleteNodeButton() const;
-    QPushButton* getBalanceButton() const;
-    QPushButton* getInfoButton() const;
-    QPushButton* getExportButton() const;
-    QString getRootValue() const;
-    QLineEdit* getParentValue() const;
-    QComboBox* getSideValue() const;
-    QLineEdit* getValue() const;
-    QGraphicsScene* getScene() const;
-    
-    void clearScene() const;
-    void drawCircle(int centerX, int centerY, int radius, const QColor &color) const;
-    void drawText(int x, int y, const QString &text) const;
-    void drawLine(int startX, int startY, int endX, int endY, const QColor &color) const;
-    void showMessage(const QString &message);
-    void showUserFeedback(const QString &message, bool success);
-    bool showConfirmation(const QString &message, const QString &title);
-    static bool isValidInput(const QString& text, float& value, QString* errorMessage);
-
 private:
     QGraphicsView *view{};
     QGraphicsScene *scene{};
@@ -42,10 +18,10 @@ private:
     QComboBox *sideInput{};
     QLineEdit *valueInput{};
 
-    QPushButton *createRootBtn{};
-    QPushButton *createNodeBtn{};
-    QPushButton *deleteRootBtn{};
-    QPushButton *deleteNodeBtn{};
+    QPushButton *addRootBtn{};
+    QPushButton *addNodeBtn{};
+    QPushButton *removeRootBtn{};
+    QPushButton *removeNodeBtn{};
     QPushButton *balanceBtn{};
     QPushButton *infoBtn{};
     QPushButton *exportImageBtn{};
@@ -59,6 +35,29 @@ private:
     QFormLayout *formLayout{};
 
     void setupUI();
+    void setUpConnections();
+
+public:
+    explicit View(QWidget *parent = nullptr);
+    
+    void clearScene() const;
+    void drawCircle(int centerX, int centerY, int radius, const QColor &color) const;
+    void drawText(int x, int y, const QString &text) const;
+    void drawLine(int startX, int startY, int endX, int endY, const QColor &color) const;
+    void showMessage(const QString &message);
+    void showUserFeedback(const QString &message, bool success);
+    bool showConfirmation(const QString &message, const QString &title);
+    static bool isValidInput(const QString& text, float& value, QString* errorMessage);
+    void render(QImage& image) const;
+
+signals:
+    void onAddRootRequested(const QString &value);
+    void onAddNodeRequested(const QString &parent, const QString &side, const QString &value);
+    void onRemoveNodeButton(const QString &parent, const QString &side, const QString &value);
+    void onRemoveRootButton();
+    void onInfoButton();
+    void onBalanceButton();
+    void onExportButton();
 };
 
 #endif //VIEW_H

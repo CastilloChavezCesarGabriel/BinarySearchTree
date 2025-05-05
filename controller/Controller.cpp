@@ -1,23 +1,20 @@
 #include "Controller.h"
 #include "DrawController.h"
 #include <QFileDialog>
-#include <QPainter>
 
 Controller::Controller(Model* model, View* view, QObject* parent)
     : QObject(parent), model(model), view(view) {
 
-    connect(view->getCreateRootButton(), &QPushButton::clicked, this, &Controller::handleAddRoot);
-    connect(view->getCreateNodeButton(), &QPushButton::clicked, this, &Controller::handleAddNode);
-    connect(view->getDeleteRootButton(), &QPushButton::clicked, this, &Controller::handleRemoveRoot);
-    connect(view->getDeleteNodeButton(), &QPushButton::clicked, this, &Controller::handleRemoveNode);
-    connect(view->getInfoButton(), &QPushButton::clicked, this, &Controller::handleShowInfo);
-    connect(view->getBalanceButton(), &QPushButton::clicked, this, &Controller::handleBalanceTree);
-    connect(view->getExportButton(), &QPushButton::clicked, this, &Controller::handleExport);
+    connect(view, &View::onAddRootRequested, this, &Controller::handleAddRoot);
+    connect(view, &View::onAddNodeRequested, this, &Controller::handleAddNode);
+    connect(view, &View::onRemoveRootButton, this, &Controller::handleRemoveRoot);
+    connect(view, &View::onRemoveNodeButton, this, &Controller::handleRemoveNode);
+    connect(view, &View::onInfoButton, this, &Controller::handleShowInfo);
+    connect(view, &View::onBalanceButton, this, &Controller::handleBalanceTree);
+    connect(view, &View::onExportButton, this, &Controller::handleExport);
 }
 
-void Controller::handleAddRoot() {
-    const QString stringValue = view->getRootValue();
-
+void Controller::handleAddRoot(const QString &stringValue) {
     if (stringValue.isEmpty()) {
         view->showUserFeedback("Please enter a valid input!", false);
         return;
@@ -38,18 +35,14 @@ void Controller::handleAddRoot() {
     onUpdateTree(model->getRoot());
 }
 
-void Controller::handleAddNode() {
-    const QString stringParentValue = view->getParentValue()->text();
-    const QString side = view->getSideValue()->currentText();
-    const QString stringValue = view->getValue()->text();
-
-    if (stringParentValue.isEmpty() || stringValue.isEmpty()) {
+void Controller::handleAddNode(const QString &stringParent, const QString &side, const QString &stringValue) {
+    if (stringParent.isEmpty() || stringValue.isEmpty()) {
         view->showUserFeedback("Please fill all fields correctly!",false);
         return;
     }
 
     float parentValue, value;
-    if (!view->isValidInput(stringParentValue,parentValue,&error) || !view->isValidInput(stringValue,value,&error)) {
+    if (!view->isValidInput(stringParent,parentValue,&error) || !view->isValidInput(stringValue,value,&error)) {
         view->showUserFeedback(error, false);
         return;
     }
@@ -93,16 +86,14 @@ void Controller::handleRemoveRoot() {
     }
 }
 
-void Controller::handleRemoveNode() {
-    const QString stringParent = view->getParentValue()->text();
-    const bool isLeft = view->getSideValue()->currentText().toLower() == "left";
-    const QString stringValue = view->getValue()->text();
-
+void Controller::handleRemoveNode(const QString& stringParent, const QString& side, const QString& stringValue) {
     float parentValue, value;
     if (!view->isValidInput(stringParent,parentValue,&error) || !view->isValidInput(stringValue,value,&error)) {
         view->showUserFeedback("Node is empty or doesn't exist!", false);
         return;
     }
+
+    const bool isLeft = side.toLower() == "left";
 
     if (view->showConfirmation("Are you sure you want to delete this node?", "Delete Node")) {
         if (!model->removeNode(parentValue, isLeft, value)) {
@@ -143,21 +134,13 @@ void Controller::onUpdateTree(Node* root) {
 }
 
 void Controller::handleExport() const {
-    QGraphicsScene* scene = view->getScene();
+    QImage image;
+    view->render(image);
 
-    if (!scene || scene->items().isEmpty()) {
+    if (image.isNull()) {
         view->showUserFeedback("No tree to export!", false);
         return;
     }
-
-    constexpr qreal scaleFactor = 3.0;
-    const QRectF bounds = scene->itemsBoundingRect();
-    QImage image((bounds.size() * scaleFactor).toSize(), QImage::Format_ARGB32);
-    image.fill(Qt::white);
-
-    QPainter painter(&image);
-    scene->render(&painter, QRectF(), bounds);
-    painter.end();
 
     const QString fileName = QFileDialog::getSaveFileName(view, "Save Tree Image", "", "PNG (*.png);;JPEG (*.jpg)");
     if (!fileName.isEmpty()) {

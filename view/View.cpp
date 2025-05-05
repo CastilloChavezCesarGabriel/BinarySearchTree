@@ -18,8 +18,8 @@ void View::setupUI() {
     view = new QGraphicsView(scene);
 
     rootInput = new QLineEdit;
-    createRootBtn = new QPushButton("Create Root");
-    deleteRootBtn = new QPushButton("Delete Root");
+    addRootBtn = new QPushButton("Create Root");
+    removeRootBtn = new QPushButton("Delete Root");
 
     parentInput = new QLineEdit;
 
@@ -28,8 +28,8 @@ void View::setupUI() {
     sideInput->addItem("right");
 
     valueInput = new QLineEdit;
-    createNodeBtn = new QPushButton("Create Node");
-    deleteNodeBtn = new QPushButton("Delete Node");
+    addNodeBtn = new QPushButton("Create Node");
+    removeNodeBtn = new QPushButton("Delete Node");
 
     balanceBtn = new QPushButton("Balance Tree");
     balanceLayout = new QHBoxLayout();
@@ -50,13 +50,13 @@ void View::setupUI() {
 
     formLayout = new QFormLayout;
     formLayout->addRow("Root Value:", topLeftLayout);
-    formLayout->addWidget(createRootBtn);
-    formLayout->addWidget(deleteRootBtn);
+    formLayout->addWidget(addRootBtn);
+    formLayout->addWidget(removeRootBtn);
     formLayout->addRow("Parent Value:", parentInput);
     formLayout->addRow("Side:", sideInput);
     formLayout->addRow("New Node Value:", valueInput);
-    formLayout->addWidget(createNodeBtn);
-    formLayout->addWidget(deleteNodeBtn);
+    formLayout->addWidget(addNodeBtn);
+    formLayout->addWidget(removeNodeBtn);
     formLayout->addRow(balanceLayout);
 
     leftLayout->addLayout(formLayout);
@@ -70,54 +70,29 @@ void View::setupUI() {
     mainLayout->addLayout(rightLayout, 3);
 
     setLayout(mainLayout);
+    setUpConnections();
 }
 
-QPushButton* View::getCreateRootButton() const {
-    return createRootBtn;
-}
+void View::setUpConnections() {
+    auto addRoot = [this]() {
+        emit onAddRootRequested(rootInput->text());
+    };
 
-QPushButton* View::getCreateNodeButton() const {
-    return createNodeBtn;
-}
+    auto addNode = [this]() {
+        emit onAddNodeRequested(parentInput->text(), sideInput->currentText(), valueInput->text());
+    };
 
-QPushButton* View::getDeleteRootButton() const {
-    return deleteRootBtn;
-}
+    auto removeNode = [this]() {
+        emit onRemoveNodeButton(parentInput->text(), sideInput->currentText(), valueInput->text());
+    };
 
-QPushButton* View::getDeleteNodeButton() const {
-    return deleteNodeBtn;
-}
-
-QPushButton* View::getBalanceButton() const {
-    return balanceBtn;
-}
-
-QPushButton* View::getInfoButton() const {
-    return infoBtn;
-}
-
-QPushButton* View::getExportButton() const {
-    return exportImageBtn;
-}
-
-QString View::getRootValue() const {
-    return rootInput->text();
-}
-
-QLineEdit* View::getParentValue() const {
-    return parentInput;
-}
-
-QComboBox* View::getSideValue() const {
-    return sideInput;
-}
-
-QLineEdit* View::getValue() const {
-    return valueInput;
-}
-
-QGraphicsScene* View::getScene() const {
-    return scene;
+    connect(addRootBtn, &QPushButton::clicked, this, addRoot);
+    connect(addNodeBtn, &QPushButton::clicked, this, addNode);
+    connect(removeRootBtn, &QPushButton::clicked, this, &View::onRemoveRootButton);
+    connect(removeNodeBtn, &QPushButton::clicked, this, removeNode);
+    connect(infoBtn, &QPushButton::clicked, this, &View::onInfoButton);
+    connect(balanceBtn, &QPushButton::clicked, this, &View::onBalanceButton);
+    connect(exportImageBtn, &QPushButton::clicked, this, &View::onExportButton);
 }
 
 void View::clearScene() const {
@@ -161,4 +136,17 @@ bool View::isValidInput(const QString& text, float& value, QString* errorMessage
         *errorMessage = "Invalid float input!";
     }
     return ok;
+}
+
+void View::render(QImage& image) const {
+    if (!scene || scene->items().isEmpty()) return;
+
+    constexpr qreal scaleFactor = 3.0;
+    const QRectF bounds = scene->itemsBoundingRect();
+    image = QImage((bounds.size() * scaleFactor).toSize(), QImage::Format_ARGB32);
+    image.fill(Qt::white);
+
+    QPainter painter(&image);
+    scene->render(&painter, QRectF(), bounds);
+    painter.end();
 }
