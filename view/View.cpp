@@ -1,7 +1,4 @@
 #include "View.h"
-#include <QFormLayout>
-#include <QPushButton>
-#include <QGraphicsEllipseItem>
 #include <QGraphicsView>
 #include <QMessageBox>
 
