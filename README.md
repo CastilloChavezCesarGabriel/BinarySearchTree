@@ -62,9 +62,9 @@ Before setting up Qt6, make sure you have the following apps and tools installed
 When installing Qt 6 using the Qt Installer, follow these steps:
 
 1. **Install Qt6**:
-- **Download the Qt Installer** from the Qt website: [Qt 6 Download](https://www.qt.io/download-dev). Create an account before proceeding.
+- Download the **Qt Installer** from the Qt website: [Qt 6 Download](https://www.qt.io/download-dev). Create an account before proceeding.
 - Run the installer and log in your Qt account.
-- During installation, **select Qt for developers** or any MSVC/MinGW compatible version.
+- During installation, select **Qt for developers** or any MSVC/MinGW compatible version.
 - Follow the rest of the installation prompts to finish the setup.
 
 2. **Install the Qt Visual Studio Tools Extension**:
@@ -74,17 +74,17 @@ When installing Qt 6 using the Qt Installer, follow these steps:
 
 3. **Set Up the Qt Version**:
 - Once the extension is installed, go to **Extensions → Qt VS Tools → Qt Versions**.
-- Click **Add**, then browse to the path where Qt was installed.
+- Click **Add**, then browse to the path where Qt was installed:
   - **MinGW**: "C:/Qt/6.*/mingw*/lib/cmake/Qt6"
   - **MSVC**: "C:/Qt/6.*/msvc*/lib/cmake/Qt6"
 - Click **OK** to register it.
 
 4. **Create a Qt project**
-- Open **Visual Studio** and open or create a new project as "Qt Widgets Application or Qt Quick Application."
+- Open **Visual Studio** and open or create a new project as **Qt Widgets Application or Qt Quick Application.**
 - Choose the Qt version and kit (e.g., MSVC 64-bit).
 - Click **Create** and set up your project.
 
-5. **Configure CMakeLists.txt (Optional)** to support Qt6:
+5. Configure **CMakeLists.txt (Optional)** to support Qt6:
   - If you're using **CMake** manually (for advanced users), add the following lines:
   ```cmake
   cmake_minimum_required(VERSION "Version set")
@@ -126,10 +126,10 @@ When installing Qt 6 using the Qt Installer, follow these steps:
 
 1. Download the **Qt Installer** from the Qt website: [Qt 6 Download](https://www.qt.io/download-dev). Create an account before proceeding.
 2. Run the installer and log in your Qt account.
-3. When installing, **select Qt for developers**.
+3. When installing, select **Qt for developers**.
 4. Follow the rest of the installation prompts to finish the setup.
-5. Open **CLion** and open or create a new project as "Qt Widget Executable."
-6. **Configure `CMakeLists.txt`** to support Qt6. It's usually bundled with CLion, but make sure it looks like this:
+5. Open **CLion** and open or create a new project as **Qt Widget Executable.**
+6. Configure **`CMakeLists.txt`** to support Qt6. It's usually bundled with CLion, but make sure it looks like this:
   ```cmake
   cmake_minimum_required(VERSION "Version set")
   # Set the project name
