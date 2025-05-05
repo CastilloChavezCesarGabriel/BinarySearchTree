@@ -5,7 +5,7 @@
 BinarySearchTree::BinarySearchTree() : root(nullptr) {}
 
 BinarySearchTree::~BinarySearchTree() {
-    deleteTree(root);
+    removeTree(root);
 }
 
 Node* BinarySearchTree::getRoot() const {
@@ -138,10 +138,10 @@ Node* BinarySearchTree::rightLeftRotate(Node* root) {
     return leftRotate(root);
 }
 
-void BinarySearchTree::deleteTree(Node* node) {
+void BinarySearchTree::removeTree(Node* node) {
     if (node == nullptr) return;
-    deleteTree(node->getLeft());
-    deleteTree(node->getRight());
+    removeTree(node->getLeft());
+    removeTree(node->getRight());
     delete node;
 }
 

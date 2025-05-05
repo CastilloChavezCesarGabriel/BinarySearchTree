@@ -23,7 +23,7 @@ public:
     std::string levelOrder() const;
 
     static Node* balance(Node* root);
-    static void deleteTree(Node* node);
+    static void removeTree(Node* node);
 
 private:
     static int getHeight(Node* node);
