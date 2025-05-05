@@ -51,7 +51,7 @@ following the MVC (Model-View-Controller) architecture pattern to ensure code re
 - **Feedback**: Displays informative and consistent GUI messages.
 - **Validation**: Ensures numeric input and logical operations.
 
-## Setting up Qt6 in Clion on Windows
+## Setting up Qt6 in Visual Studio on Windows
 Before setting up Qt6, make sure you have the following apps and tools installed:
 
 1. **Visual Studio** (2022 or Latest version): [Visual Studio](https://visualstudio.microsoft.com/)
