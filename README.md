@@ -48,7 +48,7 @@ following the MVC (Model-View-Controller) architecture pattern to ensure code re
 - **Feedback**: Displays informative and consistent GUI messages.
 - **Validation**: Ensures numeric input and logical operations.
 
-## Setting up Qt6 in Visual Studio on Windows
+## Setting up Qt6 on Windows
 Before setting up Qt6, make sure you have the following apps and tools installed:
 
 1. **Visual Studio** (2022 or Latest version): [Visual Studio](https://visualstudio.microsoft.com/)
@@ -111,7 +111,7 @@ When installing Qt 6 using the Qt Installer, follow these steps:
   ```
 6. Then configure your CMake profile in **CMakeSettings.json** or via the CMake GUI in Visual Studio.
 
-## Setting up Qt6 in Clion on Mac
+## Setting up Qt6 on Mac
 Before setting up Qt6, make sure you have the following apps and tools installed:
 
 1. **CLion** (Latest version): [JetBrains CLion](https://www.jetbrains.com/clion/download/)
