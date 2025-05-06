@@ -23,13 +23,14 @@ private:
     QPushButton *removeRootBtn{};
     QPushButton *removeNodeBtn{};
     QPushButton *balanceBtn{};
+    QPushButton *removeTreeBtn{};
     QPushButton *infoBtn{};
     QPushButton *exportImageBtn{};
 
     QHBoxLayout *mainLayout{};
     QHBoxLayout *topLeftLayout{};
     QHBoxLayout *topRightLayout{};
-    QHBoxLayout *balanceLayout{};
+    QHBoxLayout *leftBottomLayout{};
     QVBoxLayout *leftLayout{};
     QVBoxLayout *rightLayout{};
     QFormLayout *formLayout{};
@@ -57,6 +58,7 @@ signals:
     void onRemoveRootRequested();
     void onInfoRequested();
     void onBalanceRequested();
+    void onRemoveTreeRequested();
     void onExportRequested();
 };
 

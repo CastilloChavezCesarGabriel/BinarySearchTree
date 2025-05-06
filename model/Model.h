@@ -12,6 +12,7 @@ public:
     void removeRoot();
     bool removeNode(const float& parentValue, bool isLeft, const float& value) const;
     Node* findNode(const float& value) const;
+    void clearTree();
 
     bool isAVL() const;
     bool isBST() const;

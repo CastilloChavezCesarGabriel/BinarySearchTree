@@ -11,6 +11,7 @@ Controller::Controller(Model* model, View* view, QObject* parent)
     connect(view, &View::onRemoveNodeRequested, this, &Controller::handleRemoveNode);
     connect(view, &View::onInfoRequested, this, &Controller::handleShowInfo);
     connect(view, &View::onBalanceRequested, this, &Controller::handleBalanceTree);
+    connect(view, &View::onRemoveTreeRequested, this, &Controller::handleClearTree);
     connect(view, &View::onExportRequested, this, &Controller::handleExport);
 }
 
@@ -120,6 +121,19 @@ void Controller::handleBalanceTree() {
     model->setRoot(newRoot);
     onUpdateTree(newRoot);
     view->showUserFeedback("Tree balanced successfully!", true);
+}
+
+void Controller::handleClearTree() const {
+    if (!model->getRoot()) {
+        view->showUserFeedback("Tree is empty, nothing to clear!", false);
+        return;
+    }
+
+    if (view->showConfirmation("Are you sure you want to clear the tree?", "Clear Tree")) {
+        model->clearTree();
+        view->clearScene();
+        view->showUserFeedback("Tree cleared successfully!", true);
+    }
 }
 
 void Controller::handleShowInfo() const {

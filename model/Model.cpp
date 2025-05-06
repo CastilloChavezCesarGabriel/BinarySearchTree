@@ -152,6 +152,11 @@ Node* Model::balance(Node* root) {
     return newRoot;
 }
 
+void Model::clearTree() {
+    tree.removeTree(tree.getRoot());
+    tree.setRoot(nullptr);
+}
+
 bool Model::isValidInsertion(const Node* parent, const bool isLeft, const float& value) const {
     if (!parent) return false;
 

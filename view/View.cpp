@@ -29,8 +29,10 @@ void View::setupUI() {
     removeNodeBtn = new QPushButton("Delete Node");
 
     balanceBtn = new QPushButton("Balance Tree");
-    balanceLayout = new QHBoxLayout();
-    balanceLayout->addWidget(balanceBtn);
+    removeTreeBtn = new QPushButton("Delete Tree");
+    leftBottomLayout = new QHBoxLayout();
+    leftBottomLayout->addWidget(balanceBtn);
+    leftBottomLayout->addWidget(removeTreeBtn);
 
     infoBtn = new QPushButton("Show Info");
     exportImageBtn = new QPushButton("Export BST");
@@ -54,7 +56,7 @@ void View::setupUI() {
     formLayout->addRow("New Node Value:", valueInput);
     formLayout->addWidget(addNodeBtn);
     formLayout->addWidget(removeNodeBtn);
-    formLayout->addRow(balanceLayout);
+    formLayout->addRow(leftBottomLayout);
 
     leftLayout->addLayout(formLayout);
     leftLayout->setAlignment(Qt::AlignVCenter);
@@ -89,6 +91,7 @@ void View::setUpConnections() {
     connect(removeNodeBtn, &QPushButton::clicked, this, removeNode);
     connect(infoBtn, &QPushButton::clicked, this, &View::onInfoRequested);
     connect(balanceBtn, &QPushButton::clicked, this, &View::onBalanceRequested);
+    connect(removeTreeBtn, &QPushButton::clicked, this, &View::onRemoveTreeRequested);
     connect(exportImageBtn, &QPushButton::clicked, this, &View::onExportRequested);
 }
 
