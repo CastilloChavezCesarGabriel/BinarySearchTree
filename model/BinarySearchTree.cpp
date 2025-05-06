@@ -17,7 +17,7 @@ void BinarySearchTree::setRoot(Node* newRoot) {
 }
 
 int BinarySearchTree::getHeight(Node* node) {
-    if (node == nullptr) return 0;
+    if (node == nullptr) return -1;
     return std::max(getHeight(node->getLeft()), getHeight(node->getRight())) + 1;
 }
 
