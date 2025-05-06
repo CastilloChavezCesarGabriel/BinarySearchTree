@@ -16,7 +16,6 @@ public:
     Node *getRight() const;
     void setLeft(Node* node);
     void setRight(Node* node);
-    void setValue(float value);
 };
 
 #endif //NODE_H
