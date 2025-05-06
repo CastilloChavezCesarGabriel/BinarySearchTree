@@ -10,7 +10,7 @@ following the MVC (Model-View-Controller) architecture pattern to ensure code re
   - Manages node insertion, deletion, balancing, and traversal. 
   - Maintains root and ensures integrity of the tree.
 - **View**:
-  - Contains all GUI elements: input fields, buttons and tree graphics. 
+  - Contains all GUI elements: input fields, buttons, and tree graphics. 
   - Emits user interaction signals.
   - Renders the binary tree via QGraphicsScene. 
   - Manages user feedback and export operations.
@@ -27,7 +27,7 @@ following the MVC (Model-View-Controller) architecture pattern to ensure code re
 - **QLabel**: Displays text or images within the window.
 - **QObject**: Provides core features like memory management, event handling and signals/slots.
 - **QStringList**: Stores and manipulates lists of QStrings.
-- **QFileDialog**: Opens, saves and selects files using dialog boxes.
+- **QFileDialog**: Opens, saves, and selects files using dialog boxes.
 - **QMessageBox**: Displays messages to the user.
 - **QComboBox**: Displays a list of items and allows users to select one.
 - **QGraphicsView**: Displays a scene.
@@ -152,6 +152,49 @@ When installing Qt 6 using the Qt Installer, follow these steps:
 9. Go to **project configuration** and add this environment variable: "-DCMAKE_PREFIX_PATH=/Users/username/Qt/6.*/macos/plugins/platforms" (You can also find the platform file on Qt6 files)
 10. Apply the changes and click on the **Ok** button.
 11. Now you can use Qt6 in Clion.
+
+## Building and Running in Visual Studio Code
+
+You can also build and run this project using Visual Studio Code (VS Code):
+
+### 1. Open the Project
+- Launch VS Code.
+- Open your project folder.
+
+### 2. Install Required Extensions
+- Install these extensions from the Extensions sidebar:
+  - **C/C++** (by Microsoft)
+  - **CMake Tools** (by Microsoft)
+  - (Optional) **Code Runner** for quick code execution
+
+### 3. Configure the Build System
+- Ensure you have CMake and a C++ compiler (g++, clang++, or MSVC) installed.
+- Open the Command Palette (`Cmd+Shift+P` on Mac, `Ctrl+Shift+P` on Windows/Linux).
+- Type and select: `CMake: Configure` to generate build files.
+
+### 4. Build the Project
+- Open the Command Palette again.
+- Type and select: `CMake: Build` to compile the code and create the binary (likely named `BinaryTree`).
+
+### 5. Run the Program
+- In the built-in terminal, run:
+  ```sh
+  cmake .
+  make
+  ./BinaryTree
+  ```
+  (If the binary is in a subfolder like `build` or `cmake-build-debug`, navigate there first.)
+
+### 6. (Optional) Set Up a Launch Configuration
+- For debugging or running with a button:
+  1. Go to the Run and Debug sidebar.
+  2. Click "create a launch.json file".
+  3. Choose "C++ (GDB/LLDB)".
+  4. Edit the `program` path to point to your compiled binary (e.g., `"${workspaceFolder}/BinaryTree"`).
+
+### 7. (Optional) Run with Code Runner
+- If you installed Code Runner, right-click `main.cpp` and select "Run Code."
+- Note: This may not use your CMake build and might not work for multi-file projects.
 
 # License
 MIT License.
