@@ -1,5 +1,4 @@
 #include "Controller.h"
-#include "DrawController.h"
 #include <QFileDialog>
 
 Controller::Controller(Model* model, View* view, QObject* parent)
