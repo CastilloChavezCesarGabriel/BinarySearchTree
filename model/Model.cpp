@@ -14,13 +14,13 @@ bool Model::isNodeExist(const float& value) const {
     return findNode(value) != nullptr;
 }
 
-void Model::addRoot(const float& value) {
+void Model::insertRoot(const float& value) {
     if (!getRoot()) {
        setRoot(new Node(value));
     }
 }
 
-void Model::addNode(Node* parent, const bool isLeft, const float& value) {
+void Model::insertNode(Node* parent, const bool isLeft, const float& value) {
     if (parent == nullptr) return;
 
     if (isLeft) {
@@ -163,7 +163,7 @@ bool Model::isValidInsertion(const Node* parent, const bool isLeft, const float&
     if (isLeft && value >= parent->getValue()) return false;
     if (!isLeft && value <= parent->getValue()) return false;
 
-    Node* current = getRoot();
+    const Node* current = getRoot();
     while (current && current != parent) {
         if (value < current->getValue()) {
             if (parent->getValue() >= current->getValue()) return false;

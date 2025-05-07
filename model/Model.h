@@ -4,11 +4,16 @@
 #include <vector>
 
 class Model {
+private:
+    BinarySearchTree tree;
+    Node* replaceNode(Node* node) const;
+    static Node* findNodeRecursive(Node* node, const float& value);
+
 public:
     Model();
 
-    void addRoot(const float& value);
-    static void addNode(Node* parent, bool isLeft, const float& value);
+    void insertRoot(const float& value);
+    static void insertNode(Node* parent, bool isLeft, const float& value);
     void removeRoot();
     bool removeNode(const float& parentValue, bool isLeft, const float& value) const;
     Node* findNode(const float& value) const;
@@ -28,11 +33,6 @@ public:
     Node* getRoot() const;
     void setRoot(Node* newRoot);
     std::string getInfo() const;
-
-private:
-    BinarySearchTree tree;
-    Node* replaceNode(Node* node) const;
-    static Node* findNodeRecursive(Node* node, const float& value);
 };
 
 #endif //BINARYTREE_H

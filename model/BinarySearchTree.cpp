@@ -22,7 +22,7 @@ int BinarySearchTree::getHeight(Node* node) {
 }
 
 bool BinarySearchTree::isAVL() const {
-    return checkAVL(root);
+    return isBST(root, nullptr, nullptr) && checkAVL(root);
 }
 
 bool BinarySearchTree::checkAVL(Node* node) {
@@ -44,9 +44,8 @@ bool BinarySearchTree::isBST(Node* node, Node* minNode, Node* maxNode) {
 }
 
 bool BinarySearchTree::isBalanced(Node* node) {
-    const int leftHeight = getHeight(node->getLeft());
-    const int rightHeight = getHeight(node->getRight());
-    return std::abs(leftHeight - rightHeight) <= 1;
+    const int balanceFactor = findBalanceFactor(node);
+    return std::abs(balanceFactor) <= 1;
 }
 
 Node* BinarySearchTree::balance(Node* root) {
@@ -55,23 +54,30 @@ Node* BinarySearchTree::balance(Node* root) {
     root->setLeft(balance(root->getLeft()));
     root->setRight(balance(root->getRight()));
 
-    const int balanceFactor = getHeight(root->getLeft()) - getHeight(root->getRight());
+    const int balanceFactor = findBalanceFactor(root);
 
     if (balanceFactor > 1) {
-        if (getHeight(root->getLeft()->getLeft()) >= getHeight(root->getLeft()->getRight())) {
+        if (findBalanceFactor(root->getLeft()) >= 0) {
             return rightRotate(root);
         }
         return leftRightRotate(root);
     }
 
     if (balanceFactor < -1) {
-        if (getHeight(root->getRight()->getRight()) >= getHeight(root->getRight()->getLeft())) {
+        if (findBalanceFactor(root->getRight()) <= 0) {
             return leftRotate(root);
         }
         return rightLeftRotate(root);
     }
 
     return root;
+}
+
+int BinarySearchTree::findBalanceFactor(Node *node) {
+    if (!node) return 0;
+    const int left = node->getLeft() ? getHeight(node->getLeft()) : -1;
+    const int right = node->getRight() ? getHeight(node->getRight()) : -1;
+    return left - right;
 }
 
 std::string BinarySearchTree::preOrder() const {

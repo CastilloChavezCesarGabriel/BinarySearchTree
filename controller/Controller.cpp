@@ -4,8 +4,8 @@
 Controller::Controller(Model* model, View* view, QObject* parent)
     : QObject(parent), model(model), view(view) {
 
-    connect(view, &View::onAddRootRequested, this, &Controller::handleAddRoot);
-    connect(view, &View::onAddNodeRequested, this, &Controller::handleAddNode);
+    connect(view, &View::onAddRootRequested, this, &Controller::handleInsertRoot);
+    connect(view, &View::onAddNodeRequested, this, &Controller::handleInsertNode);
     connect(view, &View::onRemoveRootRequested, this, &Controller::handleRemoveRoot);
     connect(view, &View::onRemoveNodeRequested, this, &Controller::handleRemoveNode);
     connect(view, &View::onInfoRequested, this, &Controller::handleShowInfo);
@@ -14,7 +14,7 @@ Controller::Controller(Model* model, View* view, QObject* parent)
     connect(view, &View::onExportRequested, this, &Controller::handleExport);
 }
 
-void Controller::handleAddRoot(const QString &stringValue) {
+void Controller::handleInsertRoot(const QString &stringValue) {
     if (stringValue.isEmpty()) {
         view->showUserFeedback("Please enter a valid input!", false);
         return;
@@ -31,11 +31,11 @@ void Controller::handleAddRoot(const QString &stringValue) {
         return;
     }
 
-    model->addRoot(value);
+    model->insertRoot(value);
     onUpdateTree(model->getRoot());
 }
 
-void Controller::handleAddNode(const QString &stringParent, const QString &side, const QString &stringValue) {
+void Controller::handleInsertNode(const QString &stringParent, const QString &side, const QString &stringValue) {
     if (stringParent.isEmpty() || stringValue.isEmpty()) {
         view->showUserFeedback("Please fill all fields correctly!",false);
         return;
@@ -69,7 +69,7 @@ void Controller::handleAddNode(const QString &stringParent, const QString &side,
         return;
     }
 
-    model->addNode(parent, isLeft, value);
+    model->insertNode(parent, isLeft, value);
     onUpdateTree(model->getRoot());
 }
 

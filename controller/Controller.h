@@ -18,8 +18,8 @@ public:
     Controller(Model* model, View* view, QObject* parent = nullptr);
 
 private slots:
-    void handleAddRoot(const QString &stringValue);
-    void handleAddNode(const QString &stringParent, const QString &side, const QString &stringValue);
+    void handleInsertRoot(const QString &stringValue);
+    void handleInsertNode(const QString &stringParent, const QString &side, const QString &stringValue);
     void handleRemoveRoot();
     void handleRemoveNode(const QString& stringParent, const QString& side, const QString& stringValue);
     void handleBalanceTree();

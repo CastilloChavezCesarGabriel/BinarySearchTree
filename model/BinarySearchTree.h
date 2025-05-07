@@ -27,6 +27,7 @@ public:
 
 private:
     static int getHeight(Node* node);
+    static int findBalanceFactor(Node* node);
     static bool checkAVL(Node* node);
     static bool isBalanced(Node* node);
     static Node* leftRotate(Node* root);
