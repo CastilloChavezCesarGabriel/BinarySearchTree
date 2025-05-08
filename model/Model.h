@@ -12,6 +12,9 @@ private:
 public:
     Model();
 
+    Node* getRoot() const;
+    void setRoot(Node* newRoot);
+
     void insertRoot(const float& value);
     static void insertNode(Node* parent, bool isLeft, const float& value);
     void removeRoot();
@@ -29,9 +32,6 @@ public:
     std::string inOrderTraversal() const;
     std::string postOrderTraversal() const;
     std::string levelOrderTraversal() const;
-
-    Node* getRoot() const;
-    void setRoot(Node* newRoot);
     std::string getInfo() const;
 };
 

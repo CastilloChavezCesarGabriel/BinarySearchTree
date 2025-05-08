@@ -148,13 +148,13 @@ bool Model::isBST() const {
 
 Node* Model::balance(Node* root) {
     Node* newRoot = tree.balance(root);
-    tree.setRoot(newRoot);
+    setRoot(newRoot);
     return newRoot;
 }
 
 void Model::clearTree() {
-    tree.removeTree(tree.getRoot());
-    tree.setRoot(nullptr);
+    tree.removeTree(getRoot());
+    setRoot(nullptr);
 }
 
 bool Model::isValidInsertion(const Node* parent, const bool isLeft, const float& value) const {
