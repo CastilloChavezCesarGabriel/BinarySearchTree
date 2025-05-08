@@ -114,28 +114,12 @@ Node* Model::findNodeRecursive(Node* node, const float& value) {
 }
 
 std::string Model::getInfo() const {
-    std::string info = "InOrder: " + inOrderTraversal() + "\n";
-    info += "PreOrder: " + preOrderTraversal() + "\n";
-    info += "PostOrder: " + postOrderTraversal() + "\n";
-    info += "Level: " + levelOrderTraversal() + "\n";
+    std::string info = "InOrder: " + tree.inOrder() + "\n";
+    info += "PreOrder: " + tree.preOrder() + "\n";
+    info += "PostOrder: " + tree.postOrder() + "\n";
+    info += "Level: " + tree.levelOrder() + "\n";
     info += "AVL: " + std::string(isAVL() ? "Yes" : "No");
     return info;
-}
-
-std::string Model::preOrderTraversal() const {
-    return tree.preOrder();
-}
-
-std::string Model::inOrderTraversal() const {
-    return tree.inOrder();
-}
-
-std::string Model::postOrderTraversal() const {
-    return tree.postOrder();
-}
-
-std::string Model::levelOrderTraversal() const {
-    return tree.levelOrder();
 }
 
 bool Model::isAVL() const {

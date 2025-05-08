@@ -28,10 +28,6 @@ public:
     bool isNodeExist(const float& value) const;
 
     Node* balance(Node* root);
-    std::string preOrderTraversal() const;
-    std::string inOrderTraversal() const;
-    std::string postOrderTraversal() const;
-    std::string levelOrderTraversal() const;
     std::string getInfo() const;
 };
 
