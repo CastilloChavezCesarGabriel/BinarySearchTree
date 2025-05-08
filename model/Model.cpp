@@ -20,7 +20,7 @@ void Model::insertRoot(const float& value) {
     }
 }
 
-void Model::insertNode(Node* parent, const bool isLeft, const float& value) {
+void Model::insertNode(Node* parent, const bool isLeft, const float& value) const {
     if (parent == nullptr) return;
 
     if (isLeft) {

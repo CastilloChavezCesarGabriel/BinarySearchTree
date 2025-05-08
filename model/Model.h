@@ -16,7 +16,7 @@ public:
     void setRoot(Node* newRoot);
 
     void insertRoot(const float& value);
-    static void insertNode(Node* parent, bool isLeft, const float& value);
+    void insertNode(Node* parent, bool isLeft, const float& value) const;
     void removeRoot();
     bool removeNode(const float& parentValue, bool isLeft, const float& value) const;
     Node* findNode(const float& value) const;
