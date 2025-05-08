@@ -3,7 +3,6 @@
 
 Controller::Controller(Model* model, View* view, QObject* parent)
     : QObject(parent), model(model), view(view) {
-
     connect(view, &View::onAddRootRequested, this, &Controller::handleInsertRoot);
     connect(view, &View::onAddNodeRequested, this, &Controller::handleInsertNode);
     connect(view, &View::onRemoveRootRequested, this, &Controller::handleRemoveRoot);
