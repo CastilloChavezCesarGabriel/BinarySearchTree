@@ -126,10 +126,6 @@ bool Model::isAVL() const {
     return tree.isAVL();
 }
 
-bool Model::isBST() const {
-    return tree.isBST(getRoot(), nullptr, nullptr);
-}
-
 Node* Model::balance(Node* root) {
     Node* newRoot = tree.balance(root);
     setRoot(newRoot);

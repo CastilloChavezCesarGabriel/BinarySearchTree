@@ -19,9 +19,9 @@ public:
 
 private slots:
     void handleInsertRoot(const QString &stringValue);
-    void handleInsertNode(const QString &stringParent, const QString &side, const QString &stringValue);
+    void handleInsertNode(const QString &stringParent, const QString &stringValue);
     void handleRemoveRoot();
-    void handleRemoveNode(const QString& stringParent, const QString& side, const QString& stringValue);
+    void handleRemoveNode(const QString& stringParent, const QString& stringValue);
     void handleBalanceTree();
     void handleClearTree() const;
     void handleShowInfo() const;

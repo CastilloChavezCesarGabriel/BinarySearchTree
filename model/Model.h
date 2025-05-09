@@ -23,7 +23,6 @@ public:
     void clearTree();
 
     bool isAVL() const;
-    bool isBST() const;
     bool isValidInsertion(const Node* parent, bool isLeft, const float& value) const;
     bool isNodeExist(const float& value) const;
 

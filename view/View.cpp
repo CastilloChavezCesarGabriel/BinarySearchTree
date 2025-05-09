@@ -19,11 +19,6 @@ void View::setupUI() {
     removeRootBtn = new QPushButton("Delete Root");
 
     parentInput = new QLineEdit;
-
-    sideInput = new QComboBox();
-    sideInput->addItem("left");
-    sideInput->addItem("right");
-
     valueInput = new QLineEdit;
     addNodeBtn = new QPushButton("Create Node");
     removeNodeBtn = new QPushButton("Delete Node");
@@ -52,8 +47,7 @@ void View::setupUI() {
     formLayout->addWidget(addRootBtn);
     formLayout->addWidget(removeRootBtn);
     formLayout->addRow("Parent Value:", parentInput);
-    formLayout->addRow("Side:", sideInput);
-    formLayout->addRow("New Node Value:", valueInput);
+    formLayout->addRow("Node Value:", valueInput);
     formLayout->addWidget(addNodeBtn);
     formLayout->addWidget(removeNodeBtn);
     formLayout->addRow(leftBottomLayout);
@@ -78,11 +72,11 @@ void View::setUpConnections() {
     };
 
     auto addNode = [this]() {
-        emit onAddNodeRequested(parentInput->text(), sideInput->currentText(), valueInput->text());
+        emit onAddNodeRequested(parentInput->text(), valueInput->text());
     };
 
     auto removeNode = [this]() {
-        emit onRemoveNodeRequested(parentInput->text(), sideInput->currentText(), valueInput->text());
+        emit onRemoveNodeRequested(parentInput->text(), valueInput->text());
     };
 
     connect(addRootBtn, &QPushButton::clicked, this, addRoot);

@@ -53,8 +53,8 @@ public:
 
 signals:
     void onAddRootRequested(const QString &value);
-    void onAddNodeRequested(const QString &parent, const QString &side, const QString &value);
-    void onRemoveNodeRequested(const QString &parent, const QString &side, const QString &value);
+    void onAddNodeRequested(const QString &parent, const QString &value);
+    void onRemoveNodeRequested(const QString &parent, const QString &value);
     void onRemoveRootRequested();
     void onInfoRequested();
     void onBalanceRequested();
