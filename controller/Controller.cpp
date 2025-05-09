@@ -20,8 +20,8 @@ void Controller::handleInsertRoot(const QString &stringValue) {
     }
 
     float value;
-    if (!view->isValidInput(stringValue, value,&error)) {
-        view->showUserFeedback(error, false);
+    if (!view->isValidInput(stringValue, value)) {
+        view->showUserFeedback("Invalid input!", false);
         return;
     }
 
@@ -41,8 +41,8 @@ void Controller::handleInsertNode(const QString &stringParent, const QString &st
     }
 
     float parentValue, value;
-    if (!view->isValidInput(stringParent,parentValue,&error) || !view->isValidInput(stringValue,value,&error)) {
-        view->showUserFeedback(error, false);
+    if (!view->isValidInput(stringParent,parentValue) || !view->isValidInput(stringValue,value)) {
+        view->showUserFeedback("Invalid input!", false);
         return;
     }
 
@@ -82,7 +82,7 @@ void Controller::handleRemoveRoot() {
 
 void Controller::handleRemoveNode(const QString& stringParent, const QString& stringValue) {
     float parentValue, value;
-    if (!view->isValidInput(stringParent,parentValue,&error) || !view->isValidInput(stringValue,value,&error)) {
+    if (!view->isValidInput(stringParent,parentValue) || !view->isValidInput(stringValue,value)) {
         view->showUserFeedback("Node is empty or doesn't exist!", false);
         return;
     }

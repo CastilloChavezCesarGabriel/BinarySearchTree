@@ -122,11 +122,11 @@ bool View::showConfirmation(const QString &message, const QString &title) {
     return reply == QMessageBox::Yes;
 }
 
-bool View::isValidInput(const QString& text, float& value, QString* errorMessage) {
+bool View::isValidInput(const QString& text, float& value) {
     bool ok;
     value = text.toFloat(&ok);
-    if (!ok && errorMessage) {
-        *errorMessage = "Invalid float input!";
+    if (!ok) {
+        return false;
     }
     return ok;
 }

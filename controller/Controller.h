@@ -9,7 +9,6 @@ class Controller final : public QObject {
 private:
     Model* model;
     View* view;
-    QString error;
     DrawController layout;
 
     void onUpdateTree(Node* root);
