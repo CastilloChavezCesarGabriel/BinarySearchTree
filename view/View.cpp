@@ -15,12 +15,12 @@ void View::setupUI() {
     view = new QGraphicsView(scene);
 
     rootInput = new QLineEdit;
-    addRootBtn = new QPushButton("Insert");
+    addRootBtn = new QPushButton("  Insert  ");
     removeRootBtn = new QPushButton("Remove");
 
     parentInput = new QLineEdit;
     nodeInput = new QLineEdit;
-    addNodeBtn = new QPushButton("Insert");
+    addNodeBtn = new QPushButton("  Insert  ");
     removeNodeBtn = new QPushButton("Remove");
 
     balanceBtn = new QPushButton("Balance Tree");
