@@ -16,7 +16,7 @@ private:
     QLineEdit *rootInput{};
     QLineEdit *parentInput{};
     QComboBox *sideInput{};
-    QLineEdit *valueInput{};
+    QLineEdit *nodeInput{};
 
     QPushButton *addRootBtn{};
     QPushButton *addNodeBtn{};
@@ -28,9 +28,9 @@ private:
     QPushButton *exportImageBtn{};
 
     QHBoxLayout *mainLayout{};
-    QHBoxLayout *topLeftLayout{};
-    QHBoxLayout *topRightLayout{};
-    QHBoxLayout *leftBottomLayout{};
+    QHBoxLayout *upperLeftLayout{};
+    QHBoxLayout *upperRightLayout{};
+    QHBoxLayout *rightBottomLayout{};
     QVBoxLayout *leftLayout{};
     QVBoxLayout *rightLayout{};
     QFormLayout *formLayout{};

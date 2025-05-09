@@ -8,57 +8,56 @@ View::View(QWidget *parent) : QWidget(parent) {
 
 void View::setupUI() {
     setWindowTitle("Binary Search Tree");
-    resize(650, 350);
+    resize(650, 370);
 
     scene = new QGraphicsScene(this);
     scene->setBackgroundBrush(Qt::white);
     view = new QGraphicsView(scene);
 
     rootInput = new QLineEdit;
-    addRootBtn = new QPushButton("Create Root");
-    removeRootBtn = new QPushButton("Delete Root");
+    addRootBtn = new QPushButton("Insert");
+    removeRootBtn = new QPushButton("Remove");
 
     parentInput = new QLineEdit;
-    valueInput = new QLineEdit;
-    addNodeBtn = new QPushButton("Create Node");
-    removeNodeBtn = new QPushButton("Delete Node");
+    nodeInput = new QLineEdit;
+    addNodeBtn = new QPushButton("Insert");
+    removeNodeBtn = new QPushButton("Remove");
 
     balanceBtn = new QPushButton("Balance Tree");
     removeTreeBtn = new QPushButton("Delete Tree");
-    leftBottomLayout = new QHBoxLayout();
-    leftBottomLayout->addWidget(balanceBtn);
-    leftBottomLayout->addWidget(removeTreeBtn);
-
     infoBtn = new QPushButton("Show Info");
     exportImageBtn = new QPushButton("Export BST");
 
-    mainLayout = new QHBoxLayout(this);
-    leftLayout = new QVBoxLayout;
+    upperLeftLayout = new QHBoxLayout;
+    upperLeftLayout->addWidget(rootInput);
 
-    topLeftLayout = new QHBoxLayout;
-    topLeftLayout->addWidget(rootInput);
+    upperRightLayout = new QHBoxLayout;
+    upperRightLayout->addWidget(infoBtn);
+    upperRightLayout->addWidget(exportImageBtn);
 
-    topRightLayout = new QHBoxLayout;
-    topRightLayout->addWidget(infoBtn);
-    topRightLayout->addWidget(exportImageBtn);
+    rightBottomLayout = new QHBoxLayout();
+    rightBottomLayout->addWidget(balanceBtn);
+    rightBottomLayout->addWidget(removeTreeBtn);
 
     formLayout = new QFormLayout;
-    formLayout->addRow("Root Value:", topLeftLayout);
+    formLayout->addRow("Root Value:", upperLeftLayout);
     formLayout->addWidget(addRootBtn);
     formLayout->addWidget(removeRootBtn);
     formLayout->addRow("Parent Value:", parentInput);
-    formLayout->addRow("Node Value:", valueInput);
+    formLayout->addRow("Node Value:", nodeInput);
     formLayout->addWidget(addNodeBtn);
     formLayout->addWidget(removeNodeBtn);
-    formLayout->addRow(leftBottomLayout);
 
+    leftLayout = new QVBoxLayout;
     leftLayout->addLayout(formLayout);
-    leftLayout->setAlignment(Qt::AlignVCenter);
+    leftLayout->setAlignment(Qt::AlignCenter);
 
     rightLayout = new QVBoxLayout;
-    rightLayout->addLayout(topRightLayout);
+    rightLayout->addLayout(upperRightLayout);
     rightLayout->addWidget(view, 1);
+    rightLayout->addLayout(rightBottomLayout);
 
+    mainLayout = new QHBoxLayout(this);
     mainLayout->addLayout(leftLayout, 1);
     mainLayout->addLayout(rightLayout, 3);
 
@@ -72,11 +71,11 @@ void View::setUpConnections() {
     };
 
     auto addNode = [this]() {
-        emit onAddNodeRequested(parentInput->text(), valueInput->text());
+        emit onAddNodeRequested(parentInput->text(), nodeInput->text());
     };
 
     auto removeNode = [this]() {
-        emit onRemoveNodeRequested(parentInput->text(), valueInput->text());
+        emit onRemoveNodeRequested(parentInput->text(), nodeInput->text());
     };
 
     connect(addRootBtn, &QPushButton::clicked, this, addRoot);
