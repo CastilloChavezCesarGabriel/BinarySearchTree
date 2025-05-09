@@ -21,7 +21,7 @@ void View::setupUI() {
     parentInput = new QLineEdit;
     nodeInput = new QLineEdit;
     addNodeBtn = new QPushButton("  Insert  ");
-    removeNodeBtn = new QPushButton("Delete");
+    removeNodeBtn = new QPushButton("Remove");
 
     balanceBtn = new QPushButton("Balance Tree");
     removeTreeBtn = new QPushButton("Delete Tree");
