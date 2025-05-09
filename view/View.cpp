@@ -9,19 +9,24 @@ View::View(QWidget *parent) : QWidget(parent) {
 void View::setupUI() {
     setWindowTitle("Binary Search Tree");
     resize(650, 370);
+    constexpr QSize btnSize(100, 30);
 
     scene = new QGraphicsScene(this);
     scene->setBackgroundBrush(Qt::white);
     view = new QGraphicsView(scene);
 
     rootInput = new QLineEdit;
-    addRootBtn = new QPushButton("  Insert  ");
+    addRootBtn = new QPushButton("Insert");
+    addRootBtn->setFixedSize(btnSize);
     removeRootBtn = new QPushButton("Remove");
+    removeRootBtn->setFixedSize(btnSize);
 
     parentInput = new QLineEdit;
     nodeInput = new QLineEdit;
-    addNodeBtn = new QPushButton("  Insert  ");
+    addNodeBtn = new QPushButton("Insert");
+    addNodeBtn->setFixedSize(btnSize);
     removeNodeBtn = new QPushButton("Remove");
+    removeNodeBtn->setFixedSize(btnSize);
 
     balanceBtn = new QPushButton("Balance Tree");
     removeTreeBtn = new QPushButton("Delete Tree");
