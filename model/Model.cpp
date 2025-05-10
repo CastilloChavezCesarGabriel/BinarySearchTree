@@ -14,6 +14,16 @@ bool Model::isNodeExist(const float& value) const {
     return findNode(value) != nullptr;
 }
 
+bool Model::isRootOccupied(const float value) const {
+    return getRoot() && getRoot()->getValue() != value;
+}
+
+bool Model::isNodeOccupied(Node* parent, const bool isLeft) const {
+    if (!parent) return false;
+    if (isLeft) return parent->getLeft() != nullptr;
+    return parent->getRight() != nullptr;
+}
+
 void Model::insertRoot(const float& value) {
     if (!getRoot()) {
        setRoot(new Node(value));

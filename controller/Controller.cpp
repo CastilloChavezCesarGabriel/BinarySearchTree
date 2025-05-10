@@ -25,7 +25,7 @@ void Controller::handleInsertRoot(const QString &stringValue) {
         return;
     }
 
-    if (model->isNodeExist(value) || model->getRoot() && model->getRoot()->getValue() != value) {
+    if (model->isNodeExist(value) || model->isRootOccupied(value)) {
         view->showUserFeedback("A root node already exists!", false);
         return;
     }
@@ -53,13 +53,8 @@ void Controller::handleInsertNode(const QString &stringParent, const QString &st
     }
 
     const bool isLeft = value < parent->getValue();
-    if (model->isNodeExist(value)) {
-        view->showUserFeedback("Node already exists!",false);
-        return;
-    }
-
-    if ((isLeft && parent->getLeft() != nullptr) || (!isLeft && parent->getRight() != nullptr)) {
-        view->showUserFeedback("That position already has a value!", false);
+    if (model->isNodeExist(value) || model->isNodeOccupied(parent, isLeft)) {
+        view->showUserFeedback("Node already exists or position is taken.",false);
         return;
     }
 
