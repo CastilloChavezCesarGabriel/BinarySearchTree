@@ -58,6 +58,11 @@ void Controller::handleInsertNode(const QString &stringParent, const QString &st
         return;
     }
 
+    if ((isLeft && parent->getLeft() != nullptr) || (!isLeft && parent->getRight() != nullptr)) {
+        view->showUserFeedback("That position already has a value!", false);
+        return;
+    }
+
     if (!model->isValidInsertion(parent, isLeft, value)) {
         view->showUserFeedback("Invalid position for new node!", false);
         return;
