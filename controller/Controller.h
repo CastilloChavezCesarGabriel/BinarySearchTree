@@ -10,6 +10,7 @@ private:
     Model* model;
     View* view;
     DrawController layout;
+    bool isLeft{};
 
     void onUpdateTree(Node* root);
     bool isValidInput(const QString& text, float& value) const;

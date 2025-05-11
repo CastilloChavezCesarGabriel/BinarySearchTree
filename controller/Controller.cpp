@@ -61,7 +61,7 @@ void Controller::handleInsertNode(const QString &stringParent, const QString &st
         return;
     }
 
-    const bool isLeft = value < parent->getValue();
+    isLeft = value < parent->getValue();
     if (model->isNodeExist(value) || model->isNodeOccupied(parent, isLeft)) {
         view->showUserFeedback("Node already exists or position is taken.",false);
         return;
@@ -102,8 +102,7 @@ void Controller::handleRemoveNode(const QString& stringParent, const QString& st
         return;
     }
 
-    const bool isLeft = value < parent->getValue();
-
+    isLeft = value < parent->getValue();
     if (view->showConfirmation("Are you sure you want to delete this node?", "Delete Node")) {
         if (!model->removeNode(parentValue, isLeft, value)) {
             view->showUserFeedback("Could not delete node. Check parent and node value.",false);
