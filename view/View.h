@@ -47,7 +47,6 @@ public:
     void showMessage(const QString &message);
     void showUserFeedback(const QString &message, bool success);
     bool showConfirmation(const QString &message, const QString &title);
-    static bool isValidInput(const QString& text, float& value);
     void render(QImage& image) const;
 
 signals:

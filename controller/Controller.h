@@ -12,6 +12,7 @@ private:
     DrawController layout;
 
     void onUpdateTree(Node* root);
+    bool isValidInput(const QString& text, float& value) const;
 
 public:
     Controller(Model* model, View* view, QObject* parent = nullptr);

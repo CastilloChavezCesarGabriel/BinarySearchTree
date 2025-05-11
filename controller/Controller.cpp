@@ -13,6 +13,15 @@ Controller::Controller(Model* model, View* view, QObject* parent)
     connect(view, &View::onExportRequested, this, &Controller::handleExport);
 }
 
+bool Controller::isValidInput(const QString& text, float& value) const {
+    bool ok;
+    value = text.toFloat(&ok);
+    if (!ok) {
+        return false;
+    }
+    return ok;
+}
+
 void Controller::handleInsertRoot(const QString &stringValue) {
     if (stringValue.isEmpty()) {
         view->showUserFeedback("Please enter a valid input!", false);
@@ -20,7 +29,7 @@ void Controller::handleInsertRoot(const QString &stringValue) {
     }
 
     float value;
-    if (!view->isValidInput(stringValue, value)) {
+    if (!isValidInput(stringValue, value)) {
         view->showUserFeedback("Invalid input!", false);
         return;
     }
@@ -41,7 +50,7 @@ void Controller::handleInsertNode(const QString &stringParent, const QString &st
     }
 
     float parentValue, value;
-    if (!view->isValidInput(stringParent,parentValue) || !view->isValidInput(stringValue,value)) {
+    if (!isValidInput(stringParent,parentValue) || !isValidInput(stringValue,value)) {
         view->showUserFeedback("Invalid input!", false);
         return;
     }
@@ -82,7 +91,7 @@ void Controller::handleRemoveRoot() {
 
 void Controller::handleRemoveNode(const QString& stringParent, const QString& stringValue) {
     float parentValue, value;
-    if (!view->isValidInput(stringParent,parentValue) || !view->isValidInput(stringValue,value)) {
+    if (!isValidInput(stringParent,parentValue) || !isValidInput(stringValue,value)) {
         view->showUserFeedback("Node is empty or doesn't exist!", false);
         return;
     }

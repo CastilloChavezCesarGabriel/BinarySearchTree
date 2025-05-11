@@ -127,15 +127,6 @@ bool View::showConfirmation(const QString &message, const QString &title) {
     return reply == QMessageBox::Yes;
 }
 
-bool View::isValidInput(const QString& text, float& value) {
-    bool ok;
-    value = text.toFloat(&ok);
-    if (!ok) {
-        return false;
-    }
-    return ok;
-}
-
 void View::render(QImage& image) const {
     if (!scene || scene->items().isEmpty()) return;
 
