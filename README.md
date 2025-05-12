@@ -48,74 +48,10 @@ following the MVC (Model-View-Controller) architecture pattern to ensure code re
 - **Feedback**: Displays informative and consistent GUI messages.
 - **Validation**: Ensures numeric input and logical operations.
 
-## Setting up Qt6 on Windows
-Before setting up Qt6, make sure you have the following apps and tools installed:
-
-1. **Visual Studio** (2022 or Latest version): [Visual Studio](https://visualstudio.microsoft.com/)
-
-3. **MinGW or MSVC Compiler**: [MinGW](https://sourceforge.net/projects/mingw-w64/). MSVC is usually installed along with Visual Studio.
-
-### Steps
-When installing Qt 6 using the Qt Installer, follow these steps:
-
-1. **Install Qt6**:
-- Download the **Qt Installer** from the Qt website: [Qt 6 Download](https://www.qt.io/download-dev). Create an account before proceeding.
-- Run the installer and log in your Qt account.
-- During installation, select **Qt for developers** or any MSVC/MinGW compatible version.
-- Follow the rest of the installation prompts to finish the setup.
-
-2. **Install the Qt Visual Studio Tools Extension**:
-- Open **Visual Studio** and go to **Extensions → Manage Extensions → Online**.
-- Search for **Qt Visual Studio Tools** and install it.
-- Restart Visual Studio before proceeding.
-
-3. **Set Up the Qt Version**:
-- Once the extension is installed, go to **Extensions → Qt VS Tools → Qt Versions**.
-- Click **Add**, then browse to the path where Qt was installed:
-  - **MinGW**: C:/Qt/6.* /mingw* /lib/cmake/Qt6
-  - **MSVC**: "C:/Qt/6.* /msvc* /lib/cmake/Qt6"
-- Click **OK** to register it.
-
-4. **Create a Qt project**
-- Open **Visual Studio** and open or create a new project as **Qt Widgets Application or Qt Quick Application.**
-- Choose the Qt version and kit (e.g., MSVC 64-bit).
-- Click **Create** and set up your project.
-
-5. Configure **CMakeLists.txt (Optional)** to support Qt6:
-  - If you're using **CMake** manually (for advanced users), add the following lines:
-  ```cmake
-  cmake_minimum_required(VERSION "Version set")
-  # Set the project name
-  project("Project name")
-  
-  # Set the required C++ standard
-  set(CMAKE_CXX_STANDARD 17 "or after")
-  set(CMAKE_AUTOMOC ON)
-  set(CMAKE_AUTORCC ON)
-  set(CMAKE_AUTOUIC ON)
-  
-  # Set Qt6 CMake package path (adjust the Qt version if necessary)
-  # MinGW path
-  set(CMAKE_PREFIX_PATH "C:/Qt/6.*/mingw*/lib/cmake/Qt6")
-  # MSVC path
-  set(CMAKE_PREFIX_PATH "C:/Qt/6.*/msvc*/lib/cmake/Qt6")
-
-  # Find the Qt6 packages you need
-  find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
-
-  # Add executable
-  add_executable(${PROJECT_NAME} main.cpp ... "Here's where the implemented classes go!")
-
-  # Link Qt6 libraries
-  target_link_libraries(${PROJECT_NAME} Qt::Core Qt::Gui Qt::Widgets)
-  ```
-6. Then configure your CMake profile in **CMakeSettings.json** or via the CMake GUI in Visual Studio.
-
-## Setting up Qt6 on Mac
+## Setting up Qt6 on Mac & Windows
 Before setting up Qt6, make sure you have the following apps and tools installed:
 
 1. **CLion** (Latest version): [JetBrains CLion](https://www.jetbrains.com/clion/download/)
-
 2. **CMake** (Usually bundled with CLion, but you can install it separately if needed): [CMake](https://cmake.org/download/)
 
 ## Steps
@@ -123,7 +59,7 @@ When installing Qt 6 using the Qt Installer, follow these steps:
 
 1. Download the **Qt Installer** from the Qt website: [Qt 6 Download](https://www.qt.io/download-dev). Create an account before proceeding.
 2. Run the installer and log in your Qt account.
-3. When installing, select **Qt for developers**.
+3. When installing, select **Qt for developers** or any option you prefer.
 4. Follow the rest of the installation prompts to finish the setup.
 5. Open **CLion** and open or create a new project as **Qt Widget Executable.**
 6. Configure **`CMakeLists.txt`** to support Qt6. It's usually bundled with CLion, but make sure it looks like this:
@@ -136,7 +72,15 @@ When installing Qt 6 using the Qt Installer, follow these steps:
   set(CMAKE_CXX_STANDARD 17 "or after")
   set(CMAKE_AUTOMOC ON)
   set(CMAKE_AUTORCC ON)
-  set(CMAKE_AUTOUIC ON)
+  set(CMAKE_AUTOUIC ON) 
+
+  # Set CMake search path for Qt6 packages (adjust Qt version and compiler as needed)
+  # MinGW on Windows
+  set(CMAKE_PREFIX_PATH "C:/Qt/6.*/mingw*/lib/cmake/Qt6")
+  # MSVC on Windows
+  set(CMAKE_PREFIX_PATH "C:/Qt/6.*/msvc*/lib/cmake/Qt6")
+  # MacOs 
+  set(CMAKE_PREFIX_PATH "-DCMAKE_PREFIX_PATH=/Users/username/Qt/6.*/macos")
 
   # Find the Qt6 packages you need
   find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
@@ -147,11 +91,15 @@ When installing Qt 6 using the Qt Installer, follow these steps:
   # Link Qt6 libraries
   target_link_libraries(${PROJECT_NAME} Qt::Core Qt::Gui Qt::Widgets)
   ```
-7. Then go to **CMake configuration** and add this package path on CMake Options: "-DCMAKE_PREFIX_PATH=/Users/username/Qt/6.*/macos" (Replace **username** with your actual macOS username.)
+7. Then go to **CMake configuration** and add this package path on CMake Options:
+- **macOS**: "-DCMAKE_PREFIX_PATH=/Users/username/Qt/6.*/macos" (Replace **username** with your actual macOS username.)
+- **Windows**: "-DCMAKE_PREFIX_PATH=C:/Qt/6.*/msvc or mingw version/lib/cmake"
 8. Apply the changes on **CMake configuration** and click on the **Ok** button.
-9. Go to **project configuration** and add this environment variable: "-DCMAKE_PREFIX_PATH=/Users/username/Qt/6.*/macos/plugins/platforms" (You can also find the platform file on Qt6 files)
+9. Go to **project configuration** and add this environment variable: 
+- **macOS**: "-DCMAKE_PREFIX_PATH=/Users/username/Qt/6.*/macos/plugins/platforms"
+- **Windows**: "-DCMAKE_PREFIX_PATH=C:/Qt/6.*/msvc or mingw version/plugins/platforms"
 10. Apply the changes and click on the **Ok** button.
-11. Now you can use Qt6 in Clion.
+11. If you would like to learn more about setting up Qt6 in CLion, check out this [tutorial](https://www.youtube.com/watch?v=VYnU-DoIlzY).
 
 # License
 MIT License.
