@@ -1,7 +1,7 @@
 # Binary Search Tree in C++
 
 This GUI program manages dynamic binary search trees (BST) structure, allowing users to create
-and delete nodes while maintaining BST and AVL properties, while using the Qt framework and 
+and delete nodes while maintaining BST and AVL properties, using the Qt framework and 
 following the MVC (Model-View-Controller) architecture pattern to ensure code reusability.
 
 ## MVC structure:
