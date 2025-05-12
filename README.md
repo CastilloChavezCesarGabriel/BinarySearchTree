@@ -92,7 +92,7 @@ When installing Qt 6 using the Qt Installer, follow these steps:
   target_link_libraries(${PROJECT_NAME} Qt::Core Qt::Gui Qt::Widgets)
   ```
 7. Then go to **CMake configuration** and add this package path on CMake Options:
-- **macOS**: "-DCMAKE_PREFIX_PATH=/Users/username/Qt/6.*/macos" (Replace **username** with your actual macOS username.)
+- **macOS**: "-DCMAKE_PREFIX_PATH=/Users/username/Qt/6.*/macos"
 - **Windows**: "-DCMAKE_PREFIX_PATH=C:/Qt/6.*/msvc or mingw version/lib/cmake"
 8. Apply the changes on **CMake configuration** and click on the **Ok** button.
 9. Go to **project configuration** and add this environment variable: 
