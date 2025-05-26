@@ -24,7 +24,6 @@ public:
 
     bool isAVL() const;
     bool isValidInsertion(const Node* parent, bool isLeft, const float& value) const;
-    bool isNodeExist(const float& value) const;
     bool isNodeOccupied(Node* parent, bool isLeft) const;
     bool isRootOccupied(float value) const;
 

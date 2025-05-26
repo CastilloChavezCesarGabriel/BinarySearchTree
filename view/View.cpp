@@ -121,8 +121,8 @@ void View::showUserFeedback(const QString &message, const bool success) {
     QMessageBox::information(this, success ? "Success" : "Oops", message);
 }
 
-bool View::showConfirmation(const QString &message, const QString &title) {
-    const QMessageBox::StandardButton reply = QMessageBox::question(this, title, message,
+bool View::showConfirmation(const QString &message) {
+    const QMessageBox::StandardButton reply = QMessageBox::question(this, "", message,
                                                               QMessageBox::Yes | QMessageBox::No);
     return reply == QMessageBox::Yes;
 }

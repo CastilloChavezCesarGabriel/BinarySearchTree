@@ -10,10 +10,6 @@ void Model::setRoot(Node* newRoot) {
     tree.setRoot(newRoot);
 }
 
-bool Model::isNodeExist(const float& value) const {
-    return findNode(value) != nullptr;
-}
-
 bool Model::isRootOccupied(const float value) const {
     return getRoot() && getRoot()->getValue() != value;
 }

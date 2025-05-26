@@ -46,7 +46,7 @@ public:
     void drawLine(int startX, int startY, int endX, int endY, const QColor &color) const;
     void showMessage(const QString &message);
     void showUserFeedback(const QString &message, bool success);
-    bool showConfirmation(const QString &message, const QString &title);
+    bool showConfirmation(const QString &message);
     void render(QImage& image) const;
 
 signals:

@@ -34,8 +34,8 @@ void Controller::handleInsertRoot(const QString &stringValue) {
         return;
     }
 
-    if (model->isNodeExist(value) || model->isRootOccupied(value)) {
-        view->showUserFeedback("A root node already exists!", false);
+    if (model->isRootOccupied(value)) {
+        view->showUserFeedback("A root already exists!", false);
         return;
     }
 
@@ -45,7 +45,7 @@ void Controller::handleInsertRoot(const QString &stringValue) {
 
 void Controller::handleInsertNode(const QString &stringParent, const QString &stringValue) {
     if (stringParent.isEmpty() || stringValue.isEmpty()) {
-        view->showUserFeedback("Please fill all fields correctly!",false);
+        view->showUserFeedback("Please fill all the fields correctly!",false);
         return;
     }
 
@@ -62,13 +62,13 @@ void Controller::handleInsertNode(const QString &stringParent, const QString &st
     }
 
     isLeft = value < parent->getValue();
-    if (model->isNodeExist(value) || model->isNodeOccupied(parent, isLeft)) {
-        view->showUserFeedback("Node already exists or position is taken.",false);
+    if (model->isNodeOccupied(parent, isLeft)) {
+        view->showUserFeedback("Position is already taken!",false);
         return;
     }
 
     if (!model->isValidInsertion(parent, isLeft, value)) {
-        view->showUserFeedback("Invalid position for new node!", false);
+        view->showUserFeedback("Invalid new node!", false);
         return;
     }
 
@@ -82,7 +82,7 @@ void Controller::handleRemoveRoot() {
         return;
     }
 
-    if (view->showConfirmation("Are you sure you want to delete this root? ", "Delete Root")) {
+    if (view->showConfirmation("Are you sure you want to delete this root?")) {
         model->removeRoot();
         onUpdateTree(model->getRoot());
         view->showUserFeedback("Root deleted successfully!", true);
@@ -103,7 +103,7 @@ void Controller::handleRemoveNode(const QString& stringParent, const QString& st
     }
 
     isLeft = value < parent->getValue();
-    if (view->showConfirmation("Are you sure you want to delete this node?", "Delete Node")) {
+    if (view->showConfirmation("Are you sure you want to delete this node?")) {
         if (!model->removeNode(parentValue, isLeft, value)) {
             view->showUserFeedback("Could not delete node. Check parent and node value.",false);
         } else {
@@ -136,7 +136,7 @@ void Controller::handleClearTree() const {
         return;
     }
 
-    if (view->showConfirmation("Are you sure you want to clear the tree?", "Clear Tree")) {
+    if (view->showConfirmation("Are you sure you want to clear the tree?")) {
         model->clearTree();
         view->clearScene();
         view->showUserFeedback("Tree cleared successfully!", true);
